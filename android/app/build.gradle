@@ -146,6 +146,11 @@ android {
 
         }
     }
+
+    // Added to use Webview in Android
+    sourceSets {
+        main { assets.srcDirs = ['src/main/assets', '../../html'] }
+    }
 }
 
 dependencies {
