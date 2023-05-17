@@ -1,23 +1,20 @@
+import React from 'react';
 import {useRef, useEffect, useState} from 'react';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
-import campLatLng from '../../assets/data/campLatLng';
-import stopLatLng from '../../assets/data/stopLatLng';
+import {useRecoilState} from 'recoil';
+import campLatLng from '../../data/campLatLng';
+import stopLatLng from '../../data/stopLatLng';
+import {selectedStopState} from '../../stores/atom';
 import getCurrentLatLng from '../../utils/getCurrentLatLng';
+import {CheckWebViewErrorScript} from '../../utils/constants';
 
 type webViewData = {
   type: string;
-  data: any; // TODO need type for campLatLng
+  data: any; // TODO [WebView/low] need type for campLatLng
 };
-
-const checkWebViewError = `
-window.onerror = function(message, sourcefile, lineno, colno, error) {
-  alert("Message: " + message + " - Source: " + sourcefile + " Line: " + lineno + ":" + colno);
-  return true;
-};
-true;
-`;
 
 export default function MapWebView(): JSX.Element {
+  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const [webviewActivated, setWebViewActivated] = useState<boolean>(false);
   const [nearestStop, setNearestStop] = useState<string>();
   let webviewRef = useRef<WebView>(null);
@@ -26,8 +23,7 @@ export default function MapWebView(): JSX.Element {
     const data: string = event.nativeEvent.data;
     if (data === 'WebView Activated') {
       setWebViewActivated(true);
-    }
-    console.log(data);
+    } else setSelectedStop(data);
   }
 
   function sendDataToWebView(data: webViewData) {
@@ -50,7 +46,8 @@ export default function MapWebView(): JSX.Element {
     for (let [stopNum, stopCoord] of Object.entries(stopLatLng)) {
       const [x, y] = stopCoord;
       const distance =
-        Math.pow(Math.abs(latitude - x), 2) + Math.pow(Math.abs(longitude - y), 2);
+        Math.pow(Math.abs(latitude - x), 2) +
+        Math.pow(Math.abs(longitude - y), 2);
       if (typeof minDistance === 'undefined') minDistance = distance;
       else if (distance < minDistance) {
         minDistance = distance;
@@ -58,17 +55,18 @@ export default function MapWebView(): JSX.Element {
       }
     }
 
-    if (typeof nearestStop === 'string') setNearestStop(nearestStop);
-    else throw new Error('Invalid Type');
+    if (typeof nearestStop === 'string') {
+      setNearestStop(nearestStop);
+      setSelectedStop(nearestStop);
+    } else throw new Error('Invalid Type');
   }
 
-  // TODO add requestAuthorization function at config page, before then lib will be check permission automatically
+  // TODO [WebView/low] add requestAuthorization function at config page, before then lib will be check permission automatically
 
   // initalize map config
   useEffect(() => {
     if (webviewActivated) {
       getNearestStop();
-      console.log('send map Data');
       sendDataToWebView({
         type: 'map',
         data: {campLatLng, stopLatLng},
@@ -78,7 +76,6 @@ export default function MapWebView(): JSX.Element {
 
   useEffect(() => {
     if (nearestStop !== undefined) {
-      console.log('send stop data');
       sendDataToWebView({
         type: 'stop',
         data: nearestStop,
@@ -86,13 +83,20 @@ export default function MapWebView(): JSX.Element {
     }
   }, [nearestStop]);
 
+  useEffect(() => {
+    sendDataToWebView({
+      type: 'stop',
+      data: selectedStop,
+    });
+  }, [selectedStop]);
+
   return (
     <WebView
       ref={webviewRef}
       allowFileAccessFromFileURLs={true}
       onMessage={receiveDataFromWebView}
       source={{uri: 'file:///android_asset/Web.bundle/index.html'}}
-      injectedJavaScriptBeforeContentLoaded={checkWebViewError}
+      injectedJavaScriptBeforeContentLoaded={CheckWebViewErrorScript}
     />
   );
 }

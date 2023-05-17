@@ -11,13 +11,10 @@ function receiveDataFromReactNative(event) {
   const receivedData = JSON.parse(event.data);
   const {type, data} = receivedData;
   if (type === 'map') {
-    sendDataToReactNative('receive map data');
     ({campLatLng, stopLatLng} = data);
-    console.log(campLatLng, stopLatLng);
     createMap();
     createMarker();
   } else if (stopLatLng && type === 'stop') {
-    sendDataToReactNative('receive stop data');
     panToLatLng(stopLatLng[data]);
   }
 }
@@ -31,10 +28,13 @@ function createMap() {
     zoomControl: false,
   };
 
-  const layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  });
+  const layer = new L.TileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    },
+  );
 
   map = L.map('map', mapOptions).addLayer(layer);
 }
@@ -67,10 +67,10 @@ const zoomByCamp = camp => {
 
 const markerClickEvent = e => {
   const stopNum = e.target.options.title;
-  console.log(stopNum);
   sendDataToReactNative(stopNum);
 };
 
+// TODO [WebView/mid] move above the stopModal
 const panToLatLng = ([lat, lng]) => {
   map.panTo(L.latLng(lat, lng));
   // zoom function
