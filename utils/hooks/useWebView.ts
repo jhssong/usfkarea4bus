@@ -5,11 +5,12 @@ import {useRecoilState} from 'recoil';
 import CampLatLng from '../../data/CampLatLng';
 import StopLatLng from '../../data/StopLatLng';
 import {selectedStopState} from '../../stores/atom';
-import getCurrentLatLng from '../getCurrentLatLng';
+
+type LatLng = {[key: string]: number[]};
 
 type webViewData = {
   type: string;
-  data: any; // TODO [WebView/low] need type for CampLatLng
+  data: string | {[key: string]: LatLng};
 };
 
 export default function useWebView(webviewRef: React.RefObject<WebView<{}>>) {
@@ -28,33 +29,6 @@ export default function useWebView(webviewRef: React.RefObject<WebView<{}>>) {
     webviewRef.current.postMessage(JSON.stringify(data));
   }
 
-  async function getNearestStop() {
-    let nearestStop,
-      minDistance,
-      latitude: number = 0,
-      longitude: number = 0;
-
-    const data = await getCurrentLatLng();
-    if (data) {
-      latitude = data.latitude;
-      longitude = data.longitude;
-    }
-
-    for (let [stopNum, stopCoord] of Object.entries(StopLatLng)) {
-      const [x, y] = stopCoord;
-      const distance =
-        Math.pow(Math.abs(latitude - x), 2) +
-        Math.pow(Math.abs(longitude - y), 2);
-      if (typeof minDistance === 'undefined') minDistance = distance;
-      else if (distance < minDistance) {
-        minDistance = distance;
-        nearestStop = stopNum;
-      }
-    }
-
-    if (typeof nearestStop === 'string') setSelectedStop(nearestStop);
-  }
-
   // initalize map config
   useEffect(() => {
     if (webviewActivated === false) return;
@@ -64,6 +38,7 @@ export default function useWebView(webviewRef: React.RefObject<WebView<{}>>) {
     });
   }, [webviewActivated]);
 
+  // pan to selectedStop
   useEffect(() => {
     if (selectedStop === null) return;
     sendDataToWebView({
@@ -72,5 +47,5 @@ export default function useWebView(webviewRef: React.RefObject<WebView<{}>>) {
     });
   }, [selectedStop]);
 
-  return {receiveDataFromWebView, getNearestStop};
+  return {receiveDataFromWebView};
 }

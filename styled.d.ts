@@ -17,7 +17,6 @@ declare module 'styled-components/native' {
       border: string;
       blue: string;
       orange: string;
-      //   secondary: string;
     };
 
     bar: {

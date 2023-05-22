@@ -34,8 +34,8 @@ export const BarImgPressable = styled.Pressable`
   align-items: center;
 `;
 export const BarImg = styled.Image`
-  width: 16px;
-  height: 16px;
+  width: 40%;
+  height: 40%;
 `;
 
 export const BarText = styled.Text`

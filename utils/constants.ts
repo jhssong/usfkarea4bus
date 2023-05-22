@@ -1,6 +1,7 @@
 export const InitBarText = 'Search Bus Stop';
 
 export const MenuImg = require('../assets/img/menu.png');
+export const LocImg = require('../assets/img/location.png');
 export const BackImg = require('../assets/img/back.png');
 export const BusImg = require('../assets/img/bus.png');
 

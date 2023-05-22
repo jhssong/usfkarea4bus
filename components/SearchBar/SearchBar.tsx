@@ -4,21 +4,23 @@ import {selectedStopState} from '../../stores/atom';
 import SearchModal from './SearchModal';
 import * as Styles from '../../styles/SearchBarStyle';
 import * as Constants from '../../utils/constants';
+import getNearestStop from '../../utils/getNearestStop';
 
 export default function SearchBar() {
   const [searchModalVisible, setSearchModalVisible] = useState<boolean>();
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const [barText, setBarText] = useState<string>();
 
+  // TODO [Search/low] add menu modal
   function handleMenuBtn() {
     console.log('메뉴');
   }
 
   const handleSearchModal = () => setSearchModalVisible(prev => !prev);
 
-  // TODO [Search/high] location button, when you click move to the nearest stop
-  function handleSomething() {
-    console.log('뭐하지 여긴');
+  async function handleLocImg() {
+    const nearestStop = await getNearestStop();
+    if (nearestStop) setSelectedStop(nearestStop);
   }
 
   function handleBarText() {
@@ -41,8 +43,8 @@ export default function SearchBar() {
 
         <Styles.BarText>{barText}</Styles.BarText>
 
-        <Styles.BarImgPressable onPress={handleSomething}>
-          <Styles.BarImg source={Constants.MenuImg} />
+        <Styles.BarImgPressable onPress={handleLocImg}>
+          <Styles.BarImg source={Constants.LocImg} />
         </Styles.BarImgPressable>
       </Styles.BarPressable>
 
