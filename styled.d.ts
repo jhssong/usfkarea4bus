@@ -13,9 +13,10 @@ declare module 'styled-components/native' {
     color: {
       background: string;
       textBlack: string;
-      placeholderTextBlack: string;
+      lightTextBlack: string;
       border: string;
       blue: string;
+      orange: string;
       //   secondary: string;
     };
 

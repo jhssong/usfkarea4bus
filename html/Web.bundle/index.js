@@ -1,4 +1,4 @@
-let map, campLatLng, stopLatLng;
+let map, CampLatLng, StopLatLng;
 
 if (window.ReactNativeWebView)
   document.addEventListener('message', receiveDataFromReactNative);
@@ -11,11 +11,11 @@ function receiveDataFromReactNative(event) {
   const receivedData = JSON.parse(event.data);
   const {type, data} = receivedData;
   if (type === 'map') {
-    ({campLatLng, stopLatLng} = data);
+    ({CampLatLng, StopLatLng} = data);
     createMap();
     createMarker();
-  } else if (stopLatLng && type === 'stop') {
-    panToLatLng(stopLatLng[data]);
+  } else if (StopLatLng && type === 'stop' && data !== null) {
+    panToLatLng(StopLatLng[data]);
   }
 }
 
@@ -23,7 +23,7 @@ sendDataToReactNative('WebView Activated');
 
 function createMap() {
   const mapOptions = {
-    center: campLatLng['CH'],
+    center: CampLatLng['CH'],
     zoom: zoomByCamp('CH'),
     zoomControl: false,
   };
@@ -45,14 +45,14 @@ function createMarker() {
     iconSize: [30, 30],
   };
 
-  for (const stopNum in stopLatLng) {
+  for (const stopNum in StopLatLng) {
     const stopMarkerOptions = {
       title: stopNum,
       icon: L.icon(stopIconOptions),
     };
 
     let newMarker = window['marker' + stopNum];
-    newMarker = L.marker(stopLatLng[stopNum], stopMarkerOptions)
+    newMarker = L.marker(StopLatLng[stopNum], stopMarkerOptions)
       .addTo(map)
       .on('click', e => markerClickEvent(e));
   }
@@ -70,7 +70,7 @@ const markerClickEvent = e => {
   sendDataToReactNative(stopNum);
 };
 
-// TODO [WebView/mid] move above the stopModal
+// TODO [WebView/mid] move above the stopModal + zoom value
 const panToLatLng = ([lat, lng]) => {
   map.panTo(L.latLng(lat, lng));
   // zoom function

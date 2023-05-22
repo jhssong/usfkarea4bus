@@ -1,0 +1,51 @@
+const CH_WeekStop = [
+  'CHTMP',
+  'CH1',
+  'CH2',
+  'CH3',
+  'CH4',
+  'CW6',
+  'CW7',
+  'CW9',
+  'CW8',
+  'CW10',
+  'CW11',
+  'CW12',
+  'CW9',
+  'CW7',
+  'CW6',
+  'CG5',
+  'CG5A',
+  'CH1',
+  'CH2',
+  'CH3',
+  'CH4',
+  'CHTMP',
+];
+
+const CH_WkndStop = [
+  'CHTMP',
+  'CH1',
+  'CH2',
+  'CH3',
+  'CH4',
+  'CW6',
+  'CW7',
+  'CW9',
+  'CW8',
+  'CW10',
+  'CW11',
+  'CW12',
+  'CW9',
+  'CW7',
+  'CW6',
+  'CH1',
+  'CH2',
+  'CH3',
+  'CH4',
+  'CHTMP',
+];
+
+const CHD_Stop = ['CW11', 'CH1'];
+
+export {CH_WeekStop, CH_WkndStop, CHD_Stop};

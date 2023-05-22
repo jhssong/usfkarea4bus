@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useRecoilState} from 'recoil';
-import * as Constants from '../../utils/constants';
-import * as Styles from '../../styles/SearchBarStyle';
 import {selectedStopState} from '../../stores/atom';
 import SearchModal from './SearchModal';
+import * as Styles from '../../styles/SearchBarStyle';
+import * as Constants from '../../utils/constants';
 
 export default function SearchBar() {
   const [searchModalVisible, setSearchModalVisible] = useState<boolean>();
@@ -14,22 +14,18 @@ export default function SearchBar() {
     console.log('메뉴');
   }
 
-  function handleSearchModal() {
-    setSearchModalVisible(prev => !prev);
-  }
+  const handleSearchModal = () => setSearchModalVisible(prev => !prev);
 
-  // TODO [WebView/mid] think about this function
+  // TODO [Search/high] location button, when you click move to the nearest stop
   function handleSomething() {
     console.log('뭐하지 여긴');
   }
 
   function handleBarText() {
-    if (selectedStop === null) {
-      setBarText(Constants.InitBarText);
-    } else {
-      setBarText(
-        `Stop ${Constants.StopList[selectedStop].num} - ${Constants.StopList[selectedStop].name}`,
-      );
+    if (selectedStop === null) setBarText(Constants.InitBarText);
+    else {
+      const stop = Constants.StopList[selectedStop];
+      setBarText(`${stop.camp} #${stop.num} - ${stop.name}`);
     }
   }
 

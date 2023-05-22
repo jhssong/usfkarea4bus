@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import ModalView from '../Modal';
-import * as Constants from '../../utils/constants';
-import * as Styles from '../../styles/SearchBarStyle';
-import theme from '../../styles/theme';
 import {TextInput} from 'react-native';
 import SearchResult from './SearchResult';
+import ModalView from '../Modal';
+import theme from '../../styles/theme';
+import * as Styles from '../../styles/SearchBarStyle';
+import * as Constants from '../../utils/constants';
 
 export default function SearchModal(props) {
   const {isVisible, closeFunction} = props;
@@ -14,9 +14,7 @@ export default function SearchModal(props) {
 
   // TODO [WebView/low] keyboard showed up after open the modal
 
-  function handleBackBtn() {
-    closeFunction();
-  }
+  const handleBackBtn = () => closeFunction();
 
   function onChangeValue(value: string) {
     setValue(value);
@@ -71,7 +69,7 @@ export default function SearchModal(props) {
           <Styles.BarTextInput
             ref={textInputRef}
             placeholder={Constants.InitBarText}
-            placeholderTextColor={theme.color.placeholderTextBlack}
+            placeholderTextColor={theme.color.lightTextBlack}
             onChangeText={onChangeValue}
           />
         </Styles.ModalBar>

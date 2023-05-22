@@ -7,7 +7,6 @@ export default function ModalView({children, isVisible, closeFunction}) {
       isVisible={isVisible}
       backdropOpacity={0.5}
       onBackButtonPress={closeFunction}
-      onBackdropPress={closeFunction}
       style={{margin: 0}}>
       {children}
     </ReactNativeModal>

@@ -1,4 +1,4 @@
-const stopLatLng = {
+const StopLatLng = {
   CH1: [35.851514, 128.600026],
   CH2: [35.852575, 128.601154],
   CH3: [35.851605, 128.60208],
@@ -14,4 +14,4 @@ const stopLatLng = {
   CW12: [35.839156, 128.592344],
 };
 
-export default stopLatLng;
+export default StopLatLng;

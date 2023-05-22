@@ -22,9 +22,10 @@ const color = {
   // background: '#FEFEFE',
   background: '#F7F7F8',
   textBlack: '#000000',
-  placeholderTextBlack: '#838C95',
+  lightTextBlack: '#838C95',
   border: '#D9D9E3',
   blue: '#3AA5DC',
+  orange: '#CE5C37',
 
   //   "whiteBackground": "#FFFFFF",
   //     "darkwhiteBackground": '#EDEDEF',

@@ -1,14 +1,7 @@
-import {Dimensions} from 'react-native';
 import styled, {css} from 'styled-components/native';
+import {BarAreaMarginTop, BarLeft, BarTop, BarWidth} from './GlobalStyle';
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-
-const BarTop = HEIGHT * 0.02;
-const BarLeft = WIDTH * 0.02;
-const BarWidth = WIDTH - BarLeft * 2;
-
-const defaultViewStyle = css`
+const defaultBarStyle = css`
   position: absolute;
   top: ${BarTop}px;
   left: ${BarLeft}px;
@@ -21,17 +14,16 @@ const defaultViewStyle = css`
   background-color: ${({theme}) => theme.color.background};
 `;
 
-const defaultSearchBarTextStyle = css`
+const defaultBarTextStyle = css`
   width: 80%;
   margin: 0;
   padding: 0;
   color: ${({theme}) => theme.color.textBlack};
   font-size: ${({theme}) => theme.fontSize.md};
-  line-height: 30px;
 `;
 
 export const BarPressable = styled.Pressable`
-  ${defaultViewStyle};
+  ${defaultBarStyle};
   elevation: 4;
 `;
 
@@ -47,15 +39,15 @@ export const BarImg = styled.Image`
 `;
 
 export const BarText = styled.Text`
-  ${defaultSearchBarTextStyle};
+  ${defaultBarTextStyle};
 `;
 
 export const BarTextInput = styled.TextInput`
-  ${defaultSearchBarTextStyle};
+  ${defaultBarTextStyle};
 `;
 
 export const ModalBar = styled.View`
-  ${defaultViewStyle};
+  ${defaultBarStyle};
   border: 1px solid ${({theme}) => theme.color.border};
 `;
 
@@ -65,18 +57,14 @@ export const ModalView = styled.View`
 `;
 
 export const ResultScrollView = styled.ScrollView`
-  margin-top: ${50 + HEIGHT * 0.04}px;
-  background-color: ${({theme}) => theme.color.background};
+  margin-top: ${BarAreaMarginTop}px;
 `;
 
 export const ResultPressable = styled.Pressable`
   flex-direction: row;
-  align-itmes: center;
-  padding: 14px 0 14px ${4 + BarLeft}px;
-  align-items: center;
-  border-bottom-width: 2px;
+  padding: 14px ${4 + BarLeft}px;
+  border-bottom-width: 1px;
   border-bottom-color: ${({theme}) => theme.color.border};
-  background-color: ${({theme}) => theme.color.background};
 `;
 
 export const ResultImgView = styled.View`
@@ -94,6 +82,6 @@ export const ResultImg = styled.Image`
 `;
 
 export const ResultText = styled.Text`
-  ${defaultSearchBarTextStyle};
+  ${defaultBarTextStyle};
   margin-left: ${4 + BarLeft}px;
 `;

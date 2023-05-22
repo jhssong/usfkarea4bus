@@ -1,8 +1,8 @@
 import React from 'react';
 import {useRecoilState} from 'recoil';
-import * as Constants from '../../utils/constants';
-import * as Styles from '../../styles/SearchBarStyle';
 import {selectedStopState} from '../../stores/atom';
+import * as Styles from '../../styles/SearchBarStyle';
+import * as Constants from '../../utils/constants';
 
 export default function SearchResult({result, closeFunction}) {
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
@@ -13,7 +13,8 @@ export default function SearchResult({result, closeFunction}) {
   }
 
   function handleResultText(ID: string): string {
-    return `${Constants.StopList[ID].camp} #${Constants.StopList[ID].num} - ${Constants.StopList[ID].name}`;
+    const stop = Constants.StopList[ID];
+    return `${stop.camp} #${stop.num} - ${stop.name}`;
   }
 
   return (
