@@ -15,7 +15,7 @@ export const isHolidayState = atom<boolean>({
   default: false,
 });
 
-export const timePickedState = atom<boolean | null>({
+export const timePickedState = atom<boolean>({
   key: 'timePickedState',
-  default: null,
+  default: false,
 });

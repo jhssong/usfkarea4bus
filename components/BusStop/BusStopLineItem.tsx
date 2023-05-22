@@ -16,24 +16,29 @@ export default function BusStopLineItem({LineData}) {
         <Styles.BusNameText>{busName}</Styles.BusNameText>
         <Styles.BusHeadingText>heading to {nextStop}</Styles.BusHeadingText>
       </Styles.BusInfo>
+
       <Styles.TimeInfo>
         <Styles.TimeText>
           {nowTime} {nowLeft}
         </Styles.TimeText>
-        <Styles.TimeText>
-          {nextTime} {nextLeft}
-        </Styles.TimeText>
+
+        {nextTime !== 'No Bus' && (
+          <Styles.TimeText>
+            {nextTime} {nextLeft}
+          </Styles.TimeText>
+        )}
       </Styles.TimeInfo>
     </Styles.ItemPressable>
   );
 }
 
 function getColonTime(busTime: string): string {
+  if (busTime === 'No Bus') return 'No Bus';
   return busTime.slice(0, 2) + ':' + busTime.slice(2, 4);
 }
 
-// TODO [LineItem/High] test cases
 function getLeftTime(time: string, busTime: string): string {
+  if (busTime === 'No Bus') return '';
   const timeH = Number(time.slice(0, 2));
   const timeM = Number(time.slice(2, 4));
   const busTimeH = Number(busTime.slice(0, 2));
@@ -53,7 +58,9 @@ function getLeftTime(time: string, busTime: string): string {
     leftMin = busTimeM - timeM;
   }
 
-  if (leftHour != 0) res = `(${leftHour}h ${leftMin}m)`;
+  if (leftMin === 60) res = `(${leftHour + 1}h)`;
+  if (leftMin === 0) res = `(now)`;
+  else if (leftHour != 0) res = `(${leftHour}h ${leftMin}m)`;
   else res = `(${leftMin}m)`;
 
   return res;

@@ -61,7 +61,7 @@ export default function useBusStopData(busStopVisible) {
       if (value === selectedStop) stopIndexArr.push(index);
 
     for (let stopIndex of stopIndexArr)
-      for (let [index, value] of scheduleArr.entries())
+      for (let [index, value] of scheduleArr.entries()) {
         if (value[stopIndex] >= timeHM) {
           const nextTime = (): string => {
             for (
@@ -86,6 +86,18 @@ export default function useBusStopData(busStopVisible) {
           setStopData(prev => [...prev, newLineData]);
           break;
         }
+        if (index + 1 === scheduleArr.length) {
+          const newLineData: LineData = {
+            busName: busName,
+            stopID: selectedStop,
+            nextStop: Constants.StopList[stopArr[stopIndex + 1]].name,
+            time: timeHM,
+            nowTime: 'No Bus',
+            nextTime: 'No Bus',
+          };
+          setStopData(prev => [...prev, newLineData]);
+        }
+      }
   }
 
   function getCHDStopData() {
@@ -107,10 +119,22 @@ export default function useBusStopData(busStopVisible) {
         setStopData(prev => [...prev, newLineData]);
         break;
       }
+      if (index + 1 === schedule.length) {
+        const newLineData: LineData = {
+          busName: busName,
+          stopID: selectedStop,
+          nextStop: Constants.StopList[stopArr[stopIndex === 0 ? 1 : 0]].name,
+          time: timeHM,
+          nowTime: 'No Bus',
+          nextTime: 'No Bus',
+        };
+        setStopData(prev => [...prev, newLineData]);
+      }
     }
   }
 
   useEffect(() => {
+    setStopData([]);
     if (selectedStop === null) return;
     // CH, CW, CG, CC POST RUN
     getStopData(selectedStop[0] + selectedStop[1]);
@@ -119,7 +143,7 @@ export default function useBusStopData(busStopVisible) {
     // NAK
     if (false) {
     }
-  }, [selectedStop, time]);
+  }, [selectedStop, time, isHoliday]);
 
   useEffect(() => {
     if (busStopVisible === false) setStopData([]);

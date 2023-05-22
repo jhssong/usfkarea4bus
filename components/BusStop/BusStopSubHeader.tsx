@@ -28,7 +28,7 @@ export default function BusStopSubHeader() {
             false: theme.color.lightTextBlack,
           }}
           value={isHoliday}
-          onValueChange={newValue => handleisHoliday()} // TODO [BusStop/high]check this feature
+          onValueChange={newValue => handleisHoliday()}
         />
       </Styles.CheckBoxPressable>
     </Styles.SubHeader>
