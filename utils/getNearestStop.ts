@@ -9,9 +9,12 @@ export default async function getNearestStop() {
     longitude: number = 0;
 
   const data = await getCurrentLatLng();
-  if (data) {
+  if (data !== null) {
     latitude = data.latitude;
     longitude = data.longitude;
+  } else {
+    // TODO [getLoc/Med] alert or toast that permission is denied
+    return 'CH1';
   }
 
   for (let [stopNum, stopCoord] of Object.entries(StopLatLng)) {

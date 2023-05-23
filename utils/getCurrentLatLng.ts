@@ -3,7 +3,7 @@ import Geolocation, {
 } from '@react-native-community/geolocation';
 
 export default async function getCurrentLatLng() {
-  const opt = {enableHighAccuracy: true, timeout: 15000, maximumAge: 0};
+  const opt = {enableHighAccuracy: true, timeout: 15000};
   const getCurrentPosition = (): Promise<GeolocationResponse> =>
     new Promise((resolve, error) =>
       Geolocation.getCurrentPosition(resolve, error, opt),
@@ -17,5 +17,6 @@ export default async function getCurrentLatLng() {
     };
   } catch (error) {
     console.error(error);
+    return null;
   }
 }
