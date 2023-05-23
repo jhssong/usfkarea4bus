@@ -44,7 +44,7 @@ export default function SearchBar() {
         <Styles.BarText>{barText}</Styles.BarText>
 
         <Styles.BarImgPressable onPress={handleLocImg}>
-          <Styles.BarImg source={Constants.LocImg} />
+          <Styles.BigBarImg source={Constants.LocImg} />
         </Styles.BarImgPressable>
       </Styles.BarPressable>
 

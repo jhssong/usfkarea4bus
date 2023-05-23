@@ -15,8 +15,8 @@ const defaultBarStyle = css`
 `;
 
 const defaultBarTextStyle = css`
-  width: 80%;
-  margin: 0;
+  width: ${BarWidth * 0.76}px;
+  margin: 0 ${BarWidth * 0.02}px;
   padding: 0;
   color: ${({theme}) => theme.color.textBlack};
   font-size: ${({theme}) => theme.fontSize.md};
@@ -28,14 +28,19 @@ export const BarPressable = styled.Pressable`
 `;
 
 export const BarImgPressable = styled.Pressable`
-  width: 10%;
-  height: 100%;
+  width: ${BarWidth * 0.1}px;
+  height: ${BarWidth * 0.1}px;
   justify-content: center;
   align-items: center;
 `;
 export const BarImg = styled.Image`
-  width: 40%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
+`;
+
+export const BigBarImg = styled.Image`
+  width: 65%;
+  height: 65%;
 `;
 
 export const BarText = styled.Text`
