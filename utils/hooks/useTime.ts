@@ -10,7 +10,6 @@ export default function useTime() {
   const [timePicked, setTimePicked] = useRecoilState<boolean>(timePickedState);
 
   function onTimePickerChange(event, selectedDate) {
-    console.log(typeof event);
     if (event.type === 'set') {
       setTime(selectedDate);
       setTimePicked(true);
@@ -45,6 +44,11 @@ export default function useTime() {
     }
     return () => clearInterval(interval);
   }, [timePicked, time]);
+
+  useEffect(() => {
+    if (new Date().getDay() === 0 || new Date().getDay() === 6)
+      setIsHoliday(true);
+  }, []);
 
   return {
     time,

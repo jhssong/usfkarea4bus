@@ -1,7 +1,7 @@
 import StopLatLng from '../data/StopLatLng';
 import getCurrentLatLng from './getCurrentLatLng';
 
-// TODO [WebView/low] add requestAuthorization function at config page
+// TODO [low] add requestAuthorization function at config page
 export default async function getNearestStop() {
   let nearestStop,
     minDistance,
@@ -13,7 +13,7 @@ export default async function getNearestStop() {
     latitude = data.latitude;
     longitude = data.longitude;
   } else {
-    // TODO [getLoc/Med] alert or toast that permission is denied
+    // TODO [med] alert or toast that permission is denied
     return 'CH1';
   }
 

@@ -9,7 +9,7 @@ export default function BusStopLineItem({LineData}) {
   const nextTime = getColonTime(LineData.nextTime);
   const nowLeft = getLeftTime(time, nowTime);
   const nextLeft = getLeftTime(time, nextTime);
-
+  // TODO [med] add BusLine Route Modal
   return (
     <Styles.ItemPressable>
       <Styles.BusInfo>

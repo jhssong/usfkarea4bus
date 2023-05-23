@@ -70,7 +70,7 @@ const markerClickEvent = e => {
   sendDataToReactNative(stopNum);
 };
 
-// TODO [WebView/mid] move above the stopModal + zoom value
+// TODO [med] move above the stopModal + zoom value
 const panToLatLng = ([lat, lng]) => {
   map.panTo(L.latLng(lat, lng));
   // zoom function

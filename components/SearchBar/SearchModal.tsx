@@ -12,7 +12,7 @@ export default function SearchModal(props) {
   const [value, setValue] = useState<string>();
   const [result, setResult] = useState<string[]>([]);
 
-  // TODO [WebView/low] keyboard showed up after open the modal
+  // TODO [low] keyboard showed up after open the modal
 
   const handleBackBtn = () => closeFunction();
 

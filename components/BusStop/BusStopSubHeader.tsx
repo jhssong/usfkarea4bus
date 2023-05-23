@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-
+import React from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import * as Styles from '../../styles/BusStopStyle';
 import theme from '../../styles/theme';
@@ -8,7 +7,6 @@ import useTime from '../../utils/hooks/useTime';
 export default function BusStopSubHeader() {
   const {time, isHoliday, timePicked, handleTimePicker, handleisHoliday} =
     useTime();
-
   const timeText = `Now Time is ${time.toString().split(' ')[4]} ${
     timePicked ? '(fixed)' : ''
   }`;

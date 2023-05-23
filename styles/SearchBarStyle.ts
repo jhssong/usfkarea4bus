@@ -67,6 +67,7 @@ export const ResultScrollView = styled.ScrollView`
 
 export const ResultPressable = styled.Pressable`
   flex-direction: row;
+  align-items: center;
   padding: 14px ${4 + BarLeft}px;
   border-bottom-width: 1px;
   border-bottom-color: ${({theme}) => theme.color.border};
