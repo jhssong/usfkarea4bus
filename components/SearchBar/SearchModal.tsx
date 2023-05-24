@@ -8,17 +8,13 @@ import * as Constants from '../../utils/constants';
 
 export default function SearchModal(props) {
   const {isVisible, closeFunction} = props;
-  const textInputRef = useRef<TextInput>(null);
+  let textInputRef = useRef<TextInput>(null);
   const [value, setValue] = useState<string>();
   const [result, setResult] = useState<string[]>([]);
 
-  // TODO [low] keyboard showed up after open the modal
-
   const handleBackBtn = () => closeFunction();
 
-  function onChangeValue(value: string) {
-    setValue(value);
-  }
+  const onChangeValue = (value: string) => setValue(value);
 
   function searchData() {
     if (value === undefined || value.length === 0) {
@@ -56,6 +52,15 @@ export default function SearchModal(props) {
   useEffect(() => searchData(), [value]);
 
   useEffect(() => setResult([]), [isVisible]);
+
+  // open keyboard after search modal opened
+  useEffect(() => {
+    if (textInputRef.current === null) return;
+    setTimeout(() => {
+      textInputRef.current?.blur();
+      textInputRef.current?.focus();
+    }, 0);
+  }, [textInputRef.current]);
 
   return (
     <ModalView isVisible={isVisible} closeFunction={closeFunction}>

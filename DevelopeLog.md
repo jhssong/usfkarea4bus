@@ -38,7 +38,7 @@ Boolean that sets whether JavaScript running in the context of a file scheme URL
 
 ---
 
-## styled-components 설치 문제(23.05.13)
+## styled-components 설치 문제 (23.05.13)
 
 ### Problem
 
@@ -131,6 +131,55 @@ If the previous solution didn't work for you, there might be a few other things 
    I hope one of these solutions works for you. If not, let me know and I'll see if I can help further.
 
 이 중에서 3번 방법을 이용하니 해결되었다.
+
+---
+
+## TextInput focus 시 키보드 이벤트 (23.05.25)
+
+### Problem
+
+TextInput이 focus될 경우 자동적으로 키보드가 떠야하는데 focus 되었음에도 불구하고 키보드가 뜨지 않았다.
+
+### Solution
+
+깃허브 이슈들을 검색해보다가 어떤 한 [코멘트](https://github.com/software-mansion/react-native-screens/issues/472#issuecomment-1239494850)를 보고 코드를 다시 짜봤는데 작동되었다.
+
+```ts
+let textInputRef = useRef<TextInput>(null);
+
+useEffect(() => {
+    if (textInputRef.current === null) return;
+    setTimeout(() => {
+      textInputRef.current?.blur();
+      textInputRef.current?.focus();
+    }, 100);
+}, [textInputRef.current]);
+
+return (
+  <Styles.BarTextInput
+    ref={textInputRef}
+    ...
+  />
+)
+```
+
+결론적으론 blur()를 먼저 하고 focus()를 해야한다는건데 아직 명확한 이유는 모르겠다. 나중에 react native를 깊게 다룰 기회가 있다면 한번 공부해보고 싶다.
+
+---
+
+## 새로운 문제(날짜)
+
+### Problem
+
+```
+Error Code
+```
+
+### Solution
+
+```
+Solution Code
+```
 
 ---
 
