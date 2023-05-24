@@ -48,7 +48,7 @@ export default function BusStopInfo() {
               </Styles.BackImgPressable>
             )}
             <Styles.Header onPress={handleFullSize} full={fullSize}>
-              {/* {!fullSize && <Styles.HandleBar />} */}
+              {!fullSize && <Styles.HandleBar />}
               <Styles.HeaderText
                 numberOfLines={1}
                 ellipsizeMode={'tail'}

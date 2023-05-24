@@ -1,7 +1,8 @@
 let map, CampLatLng, StopLatLng;
 
-if (window.ReactNativeWebView)
+if (window.ReactNativeWebView) {
   document.addEventListener('message', receiveDataFromReactNative);
+}
 
 const sendDataToReactNative = async data => {
   window.ReactNativeWebView.postMessage(data);
@@ -59,20 +60,10 @@ function createMarker() {
 }
 
 const zoomByCamp = camp => {
-  if (camp === 'CH') return 17;
-  else if (camp === 'CW') return 15;
-  else if (camp === 'CG') return 17;
-  else if (camp === 'CC') return 15;
+  if (camp === 'CW' || camp === 'CC') return 15;
+  else if (camp === 'CH' || camp === 'CG') return 17;
 };
 
-const markerClickEvent = e => {
-  const stopNum = e.target.options.title;
-  sendDataToReactNative(stopNum);
-};
+const markerClickEvent = e => sendDataToReactNative(e.target.options.title);
 
-// TODO [med] move above the stopModal + zoom value
-const panToLatLng = ([lat, lng]) => {
-  map.panTo(L.latLng(lat, lng));
-  // zoom function
-  // above a little bit
-};
+const panToLatLng = ([lat, lng]) => map.setView(L.latLng(lat, lng), 17);

@@ -8,6 +8,8 @@ import {RecoilRoot} from 'recoil';
 import BusStopInfo from './components/BusStop/BusStopInfo';
 
 function App(): JSX.Element {
+  // TODO [low] add menu for gate info
+  // TODO [low] redesign osm
   return (
     <RecoilRoot>
       <SafeAreaView style={{flex: 1}}>

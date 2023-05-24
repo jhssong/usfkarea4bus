@@ -20,21 +20,21 @@ export const ModalView = styled.Pressable<{full: boolean}>`
   background-color: ${({theme}) => theme.color.background};
 `;
 
-// export const HandleBar = styled.View`
-//   width: 15%;
-//   margin: 10px 0;
-//   align-self: center;
-//   border-top-width: 5px;
-//   border-top-color: ${({theme}) => theme.color.border};
-//   border-radius: ${({theme}) => theme.bar.barBorderRadius};
-// `;
-
 export const Header = styled.Pressable<{full: boolean}>`
   margin-top: ${props => (props.full ? BarAreaMarginTop - 50 + BarTop : 0)}px;
   justify-content: center;
   padding: 16px ${BarLeft}px;
   border-bottom-width: 1px;
   border-bottom-color: ${({theme}) => theme.color.border};
+`;
+
+export const HandleBar = styled.View`
+  width: 15%;
+  height: 5px;
+  margin: 0 0 20px 0;
+  align-self: center;
+  background-color: ${({theme}) => theme.color.border};
+  border-radius: ${({theme}) => theme.bar.barBorderRadius};
 `;
 
 export const HeaderText = styled.Text<{full: boolean}>`
@@ -113,7 +113,10 @@ export const TimeInfo = styled.View`
   align-items: flex-end;
 `;
 
-export const TimeText = styled.Text`
-  color: ${({theme}) => theme.color.orange};
+export const TimeText = styled.Text<{noBus: boolean}>`
+  color: ${props =>
+    props.noBus
+      ? ({theme}) => theme.color.lightTextBlack
+      : ({theme}) => theme.color.orange};
   font-size: ${({theme}) => theme.fontSize.md};
 `;

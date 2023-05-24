@@ -18,12 +18,12 @@ export default function BusStopLineItem({LineData}) {
       </Styles.BusInfo>
 
       <Styles.TimeInfo>
-        <Styles.TimeText>
+        <Styles.TimeText noBus={nowTime === 'No Bus'}>
           {nowTime} {nowLeft}
         </Styles.TimeText>
 
         {nextTime !== 'No Bus' && (
-          <Styles.TimeText>
+          <Styles.TimeText noBus={false}>
             {nextTime} {nextLeft}
           </Styles.TimeText>
         )}
