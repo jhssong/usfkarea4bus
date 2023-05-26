@@ -68,7 +68,6 @@ export default function useBusStopData(
     else return emptyReturn;
   }
 
-  // TODO [low] combine getStopData() & getCHDStopData()
   function getStopData(camp: string) {
     const [busName, stopArr, scheduleArr]: MetaData = getMetaData(camp);
 
@@ -79,26 +78,32 @@ export default function useBusStopData(
 
     for (let stopIndex of stopIndexArr)
       for (let [index, value] of scheduleArr.entries()) {
-        if (value[stopIndex] >= timeHM) {
-          const nextTime = (): string => {
-            for (
-              let scheduleIndex = index + 1;
-              scheduleIndex < scheduleArr.length;
-              scheduleIndex++
-            ) {
-              const time: string = scheduleArr[scheduleIndex][stopIndex];
-              if (time !== '0000') return time;
-            }
-            return 'No Bus';
-          };
+        let newLineData: LineData = {
+          busName: busName,
+          stopID: selectedStop,
+          nextStopID: stopArr[stopIndex + 1],
+          stopIndex: stopIndex,
+          scheduleIndex: index,
+          nowTime: '',
+          nextTime: '',
+        };
 
-          const newLineData: LineData = {
-            busName: busName,
-            stopID: selectedStop,
-            nextStopID: stopArr[stopIndex + 1],
-            stopIndex: stopIndex,
-            scheduleIndex: index,
-            nowTime: scheduleArr[index][stopIndex],
+        const nextTime = (): string => {
+          for (
+            let nextIndex = index + 1;
+            nextIndex < scheduleArr.length;
+            nextIndex++
+          ) {
+            const time: string = scheduleArr[nextIndex][stopIndex];
+            if (time !== '0000') return time;
+          }
+          return 'No Bus';
+        };
+
+        if (value[stopIndex] >= timeHM) {
+          newLineData = {
+            ...newLineData,
+            nowTime: value[stopIndex],
             nextTime: nextTime(),
           };
 
@@ -106,15 +111,7 @@ export default function useBusStopData(
           break;
         }
         if (index + 1 === scheduleArr.length) {
-          const newLineData: LineData = {
-            busName: busName,
-            stopID: selectedStop,
-            nextStopID: stopArr[stopIndex + 1],
-            stopIndex: stopIndex,
-            scheduleIndex: index,
-            nowTime: 'No Bus',
-            nextTime: 'No Bus',
-          };
+          newLineData = {...newLineData, nowTime: 'No Bus', nextTime: 'No Bus'};
           setStopData(prev => [...prev, newLineData]);
         }
       }
@@ -127,26 +124,33 @@ export default function useBusStopData(
     const schedule = scheduleArr[stopIndex];
 
     for (let [index, value] of schedule.entries()) {
+      let newLineData: LineData = {
+        busName: busName,
+        stopID: selectedStop,
+        nextStopID: stopArr[stopIndex === 0 ? 1 : 0],
+        stopIndex: stopIndex,
+        scheduleIndex: index,
+        nowTime: '',
+        nextTime: '',
+      };
+
+      const nextTime = (): string => {
+        return schedule[++index] ?? 'No Bus';
+      };
+
       if (value >= timeHM) {
-        const newLineData: LineData = {
-          busName: busName,
-          stopID: selectedStop,
-          nextStopID: stopArr[stopIndex === 0 ? 1 : 0],
-          stopIndex: stopIndex,
-          scheduleIndex: index,
+        newLineData = {
+          ...newLineData,
           nowTime: value,
-          nextTime: schedule[++index] ?? 'No Bus',
+          nextTime: nextTime(),
         };
         setStopData(prev => [...prev, newLineData]);
         break;
       }
+
       if (index + 1 === schedule.length) {
-        const newLineData: LineData = {
-          busName: busName,
-          stopID: selectedStop,
-          nextStopID: stopArr[stopIndex === 0 ? 1 : 0],
-          stopIndex: stopIndex,
-          scheduleIndex: index,
+        newLineData = {
+          ...newLineData,
           nowTime: 'No Bus',
           nextTime: 'No Bus',
         };
@@ -158,7 +162,6 @@ export default function useBusStopData(
   function getLineDetail(camp: string, lineData: LineData) {
     const [x, stopList, scheduleArr]: MetaData = getMetaData(camp);
     const scheduleList = scheduleArr[lineData.scheduleIndex];
-
     setLineDetail({stopList, scheduleList});
   }
 
