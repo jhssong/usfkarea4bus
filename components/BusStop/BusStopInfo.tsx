@@ -7,13 +7,16 @@ import * as Constants from '../../utils/constants';
 import BusStopSubHeader from './BusStopSubHeader';
 import BusStopLineItem from './BusStopLineItem';
 import useBusStopData from '../../utils/hooks/useBusStopData';
+import BusStopLineDetail from './BusStopLineDetail';
 
 export default function BusStopInfo() {
   const [busStopVisible, setBusStopVisible] = useState<boolean>(false);
+  const [busLineVisible, setBusLineVisible] = useState<boolean>(false);
   const [fullSize, setFullSize] = useState<boolean>(false);
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const [headerText, setHeaderText] = useState<string>();
-  const [stopData] = useBusStopData(busStopVisible);
+  const {stopData} = useBusStopData('stop', busStopVisible);
+  const [itemIndex, setItemIndex] = useState<number>(-1);
 
   function closeBusStopModal() {
     if (fullSize) {
@@ -24,9 +27,17 @@ export default function BusStopInfo() {
     setSelectedStop(null);
   }
 
-  function handleFullSize() {
-    setFullSize(prev => !prev);
+  const closeBusLineModal = () => {
+    setBusLineVisible(false);
+    setItemIndex(-1);
+  };
+
+  function openBusLineModal(index: number) {
+    setItemIndex(index);
+    setBusLineVisible(true);
   }
+
+  const handleFullSize = () => setFullSize(prev => !prev);
 
   useEffect(() => {
     if (selectedStop === null) setBusStopVisible(false);
@@ -61,9 +72,24 @@ export default function BusStopInfo() {
 
             <Styles.BusStopLineList>
               {stopData.map((LineData, index) => {
-                return <BusStopLineItem LineData={LineData} key={index} />;
+                return (
+                  <BusStopLineItem
+                    lineData={LineData}
+                    itemIndex={index}
+                    openBusLineModal={openBusLineModal}
+                    key={index}
+                  />
+                );
               })}
             </Styles.BusStopLineList>
+
+            {itemIndex !== -1 && (
+              <BusStopLineDetail
+                lineData={stopData[itemIndex]}
+                isVisible={busLineVisible}
+                closeFunction={closeBusLineModal}
+              />
+            )}
           </Styles.ModalView>
         </Styles.ModalContainer>
       </ModalView>

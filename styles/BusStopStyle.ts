@@ -5,6 +5,7 @@ import {
   BarTop,
   BarWidth,
   HEIGHT,
+  WIDTH,
 } from './GlobalStyle';
 import {BarImg} from './SearchBarStyle';
 
@@ -88,14 +89,17 @@ export const TimePickerText = styled.Text`
 export const BusStopLineList = styled.ScrollView``;
 
 export const ItemPressable = styled.Pressable`
-  padding: 6px ${BarLeft}px;
+  padding: 10px ${BarLeft}px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({theme}) => theme.color.border};
 `;
 
 export const BusInfo = styled.View`
-  flex-direction: column;
+  height: 48px;
+  justify-content: center;
 `;
 
 export const BusNameText = styled.Text`
@@ -110,13 +114,35 @@ export const BusHeadingText = styled.Text`
 `;
 
 export const TimeInfo = styled.View`
-  align-items: flex-end;
+  height: 48px;
+  justify-content: center;
 `;
 
-export const TimeText = styled.Text<{noBus: boolean}>`
+export const TimeText = styled.Text<{noBus?: boolean}>`
   color: ${props =>
     props.noBus
       ? ({theme}) => theme.color.lightTextBlack
       : ({theme}) => theme.color.orange};
+  font-size: ${({theme}) => theme.fontSize.md};
+  line-height: 24px;
+`;
+
+export const StopList = styled.ScrollView``;
+
+export const LineDetail = styled.Pressable`
+  height: 100px;
+  padding: 0 16px;
+  flex-direction: row;
+`;
+
+export const BusLine = styled.View`
+  width: 4px;
+  height: 100%;
+  margin-left: ${BarLeft + 30}px;
+  background-color: ${({theme}) => theme.color.blue};
+`;
+
+export const LineDetailText = styled.Text`
+  color: ${({theme}) => theme.color.textBlack};
   font-size: ${({theme}) => theme.fontSize.md};
 `;

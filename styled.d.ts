@@ -15,6 +15,7 @@ declare module 'styled-components/native' {
       textBlack: string;
       lightTextBlack: string;
       border: string;
+      line: string;
       blue: string;
       orange: string;
     };

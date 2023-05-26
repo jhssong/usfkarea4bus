@@ -8,6 +8,8 @@ export default function useTime() {
   const [isHoliday, setIsHoliday] = useRecoilState<boolean>(isHolidayState);
   const [time, setTime] = useRecoilState<Date>(timeState);
   const [timePicked, setTimePicked] = useRecoilState<boolean>(timePickedState);
+  const timeHMS = time.toString().split(' ')[4].split(':');
+  const timeHM = timeHMS[0] + timeHMS[1];
 
   function onTimePickerChange(event, selectedDate) {
     if (event.type === 'set') {
@@ -51,7 +53,8 @@ export default function useTime() {
   }, []);
 
   return {
-    time,
+    timeHM,
+    timeHMS,
     isHoliday,
     timePicked,
     handleTimePicker,
