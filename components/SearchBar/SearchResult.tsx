@@ -25,7 +25,7 @@ export default function SearchResult({result, closeFunction}) {
             key={key}
             onPress={() => handleResult(stopID)}>
             <Styles.ResultImgView>
-              <Styles.ResultImg source={Constants.BusImg} />
+              <Styles.ResultImg source={Constants.BusImgSrc} />
             </Styles.ResultImgView>
 
             <Styles.ResultText>{handleResultText(stopID)}</Styles.ResultText>

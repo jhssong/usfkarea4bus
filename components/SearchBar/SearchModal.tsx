@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {TextInput} from 'react-native';
 import SearchResult from './SearchResult';
-import ModalView from '../Modal';
+import Modal from '../Modal';
 import theme from '../../styles/theme';
 import * as Styles from '../../styles/SearchBarStyle';
 import * as Constants from '../../utils/constants';
@@ -63,12 +63,12 @@ export default function SearchModal(props) {
   }, [textInputRef.current]);
 
   return (
-    <ModalView isVisible={isVisible} closeFunction={closeFunction}>
+    <Modal isVisible={isVisible} closeFunction={closeFunction}>
       <Styles.ModalView>
         {/* Search Bar Area */}
         <Styles.ModalBar>
           <Styles.BarImgPressable onPress={handleBackBtn}>
-            <Styles.BarImg source={Constants.BackImg} />
+            <Styles.BarImg source={Constants.BackImgSrc} />
           </Styles.BarImgPressable>
 
           <Styles.BarTextInput
@@ -82,6 +82,6 @@ export default function SearchModal(props) {
         {/* Searched Result Area */}
         <SearchResult result={result} closeFunction={closeFunction} />
       </Styles.ModalView>
-    </ModalView>
+    </Modal>
   );
 }

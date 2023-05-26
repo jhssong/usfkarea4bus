@@ -38,13 +38,13 @@ export default function SearchBar() {
       {/* Search Bar Area */}
       <Styles.BarPressable onPress={handleSearchModal}>
         <Styles.BarImgPressable onPress={handleMenuBtn}>
-          <Styles.BarImg source={Constants.MenuImg} />
+          <Styles.BarImg source={Constants.MenuImgSrc} />
         </Styles.BarImgPressable>
 
         <Styles.BarText>{barText}</Styles.BarText>
 
         <Styles.BarImgPressable onPress={handleLocImg}>
-          <Styles.BigBarImg source={Constants.LocImg} />
+          <Styles.BigBarImg source={Constants.LocImgSrc} />
         </Styles.BarImgPressable>
       </Styles.BarPressable>
 

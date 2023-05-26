@@ -1,11 +1,11 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
+import {RecoilRoot} from 'recoil';
 import {ThemeProvider} from 'styled-components/native';
 import MapWebView from './components/MapWebView/MapWebView';
 import SearchBar from './components/SearchBar/SearchBar';
+import StopInfo from './components/BusStop/StopInfo';
 import theme from './styles/theme';
-import {RecoilRoot} from 'recoil';
-import BusStopInfo from './components/BusStop/BusStopInfo';
 
 function App(): JSX.Element {
   // TODO [low] add menu for gate info
@@ -16,7 +16,7 @@ function App(): JSX.Element {
         <ThemeProvider theme={theme}>
           <MapWebView />
           <SearchBar />
-          <BusStopInfo />
+          <StopInfo />
         </ThemeProvider>
       </SafeAreaView>
     </RecoilRoot>

@@ -1,9 +1,9 @@
 export const InitBarText = 'Search Bus Stop';
 
-export const MenuImg = require('../assets/img/menu.png');
-export const LocImg = require('../assets/img/location.png');
-export const BackImg = require('../assets/img/back.png');
-export const BusImg = require('../assets/img/bus.png');
+export const MenuImgSrc = require('../assets/img/menu.png');
+export const LocImgSrc = require('../assets/img/location.png');
+export const BackImgSrc = require('../assets/img/back.png');
+export const BusImgSrc = require('../assets/img/bus.png');
 
 export const CheckWebViewErrorScript = `
 window.onerror = function(message, sourcefile, lineno, colno, error) {

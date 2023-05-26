@@ -1,5 +1,11 @@
 import styled, {css} from 'styled-components/native';
-import {BarAreaMarginTop, BarLeft, BarTop, BarWidth} from './GlobalStyle';
+import {
+  BarAreaMarginTop,
+  BarImgStyle,
+  BarLeft,
+  BarTop,
+  BarWidth,
+} from './GlobalStyle';
 
 const defaultBarStyle = css`
   position: absolute;
@@ -34,8 +40,7 @@ export const BarImgPressable = styled.Pressable`
   align-items: center;
 `;
 export const BarImg = styled.Image`
-  width: 50%;
-  height: 50%;
+  ${BarImgStyle}
 `;
 
 export const BigBarImg = styled.Image`

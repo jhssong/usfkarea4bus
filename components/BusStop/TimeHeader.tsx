@@ -4,7 +4,7 @@ import * as Styles from '../../styles/BusStopStyle';
 import theme from '../../styles/theme';
 import useTime from '../../utils/hooks/useTime';
 
-export default function BusStopSubHeader() {
+export default function TimeHeader() {
   const {timeHMS, isHoliday, timePicked, handleTimePicker, handleisHoliday} =
     useTime();
   const timeText = `Now Time is ${
@@ -12,13 +12,13 @@ export default function BusStopSubHeader() {
   } ${timePicked ? '(fixed)' : ''}`;
 
   return (
-    <Styles.SubHeader>
+    <Styles.TimeHeader>
       <Styles.TimePickerPressable onPress={handleTimePicker}>
-        <Styles.TimePickerText>{timeText}</Styles.TimePickerText>
+        <Styles.TimeHeaderText>{timeText}</Styles.TimeHeaderText>
       </Styles.TimePickerPressable>
 
       <Styles.CheckBoxPressable onPress={handleisHoliday}>
-        <Styles.CheckBoxText>Holiday</Styles.CheckBoxText>
+        <Styles.TimeHeaderText>Holiday</Styles.TimeHeaderText>
         <CheckBox // height: 32px(uncontrollable)
           disabled={false}
           tintColors={{
@@ -29,6 +29,6 @@ export default function BusStopSubHeader() {
           onValueChange={newValue => handleisHoliday()}
         />
       </Styles.CheckBoxPressable>
-    </Styles.SubHeader>
+    </Styles.TimeHeader>
   );
 }

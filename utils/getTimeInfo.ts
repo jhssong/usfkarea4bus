@@ -1,10 +1,10 @@
-export default function getTimeInfo(time: string, busTime: string): string[] {
+export default function getTimeInfo(time: string, busTime: string): string {
   let comingTime = '',
     leftTime = '';
 
   if (busTime === 'No Bus') {
     comingTime = 'No Bus';
-    return [comingTime, leftTime];
+    return `${comingTime} ${leftTime}`;
   }
 
   comingTime = busTime.slice(0, 2) + ':' + busTime.slice(2, 4);
@@ -32,5 +32,5 @@ export default function getTimeInfo(time: string, busTime: string): string[] {
   else if (leftHour != 0) leftTime = `(${leftHour}h ${leftMin}m)`;
   else leftTime = `(${leftMin}m)`;
 
-  return [comingTime, leftTime];
+  return `${comingTime} ${leftTime}`;
 }
