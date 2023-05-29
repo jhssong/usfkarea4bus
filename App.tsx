@@ -8,7 +8,6 @@ import StopInfo from './components/BusStop/StopInfo';
 import theme from './styles/theme';
 
 function App(): JSX.Element {
-  // TODO [low] add menu for gate info
   // TODO [low] redesign osm
   return (
     <RecoilRoot>

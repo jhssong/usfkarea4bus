@@ -4,6 +4,7 @@ export const MenuImgSrc = require('../assets/img/menu.png');
 export const LocImgSrc = require('../assets/img/location.png');
 export const BackImgSrc = require('../assets/img/back.png');
 export const BusImgSrc = require('../assets/img/bus.png');
+export const PointSrc = require('../assets/img/point.png');
 
 export const CheckWebViewErrorScript = `
 window.onerror = function(message, sourcefile, lineno, colno, error) {

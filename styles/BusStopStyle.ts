@@ -141,40 +141,54 @@ export const TimeText = styled.Text<{noBus?: boolean}>`
 
 export const DetailList = styled.ScrollView``;
 
-export const DetailPressable = styled.Pressable`
-  height: 48px;
+export const DetailPressable = styled.Pressable<{isPoint: boolean}>`
+  height: 70px;
   flex-direction: row;
+  align-items: center;
+  background-color: ${props =>
+    props.isPoint
+      ? ({theme}) => theme.color.lightBlue
+      : ({theme}) => theme.color.background};
+`;
+
+export const LineView = styled.View`
+  width: 30%;
+  height: 71px;
   align-items: center;
 `;
 
-export const BusLineView = styled.View`
-  margin: 0 5% 0 15%;
-  align-items: center;
+export const LinePoint = styled.Image`
+  position: absolute;
+  top: 26px;
+  width: 16px;
+  height: 16px;
+  z-index: 10;
+  background-color: transparent;
 `;
 
 export const BusLine = styled.View`
   width: 4px;
   height: 100%;
-  background-color: ${({theme}) => theme.color.blue};
-`;
-
-export const BusLineBlock = styled.View`
-  top: 24px;
-  width: 15px;
-  height: 15px;
-  background-color: black;
-  z-index: 1;
+  background-color: ${({theme}) => theme.color.line};
 `;
 
 export const DetailInfoView = styled.View`
-  width: 80%;
+  width: 70%;
   height: 100%;
-  padding: 0 16px 0 0;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom-width: 1px;
   border-bottom-color: ${({theme}) => theme.color.border};
+`;
+
+export const DetailInfoTextView = styled.View`
+  flex-direction: column;
+`;
+
+export const DetailCampText = styled.Text`
+  color: ${({theme}) => theme.color.lightTextBlack};
+  font-size: ${({theme}) => theme.fontSize.sm};
 `;
 
 export const DetailNameText = styled.Text`

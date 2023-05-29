@@ -11,7 +11,7 @@ export default function SearchBar() {
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const [barText, setBarText] = useState<string>();
 
-  // TODO [low] add menu modal
+  // TODO [low] add menu modal (gate info, )
   function handleMenuBtn() {
     console.log('메뉴');
   }

@@ -187,7 +187,7 @@ export default function useBusStopData(
       else camp = data.stopID[0] + data.stopID[1];
       getLineDetail(camp, data);
     }
-  }, [type]);
+  }, [type, data]);
 
   return {stopData, lineDetail};
 }

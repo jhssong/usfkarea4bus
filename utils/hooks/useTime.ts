@@ -40,7 +40,7 @@ export default function useTime() {
    * https://medium.com/how-to-react/simple-way-to-create-a-stopwatch-in-react-js-bcc0e08e041e
    */
   useEffect(() => {
-    let interval;
+    let interval: any;
     if (timePicked === false) {
       interval = setInterval(() => setTime(new Date()), 1000);
     }

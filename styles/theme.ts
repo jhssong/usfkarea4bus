@@ -15,6 +15,7 @@ const color = {
   border: '#D9D9E3',
   line: '#A5A5A5',
   blue: '#3AA5DC',
+  lightBlue: '#e2f4fb',
   orange: '#CE5C37',
 };
 

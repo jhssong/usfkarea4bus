@@ -12,7 +12,7 @@ export default function getTimeInfo(time: string, busTime: string): string {
   const timeH = Number(time.slice(0, 2));
   const timeM = Number(time.slice(2, 4));
   const busTimeH = Number(busTime.slice(0, 2));
-  const busTimeM = Number(busTime.slice(3, 5));
+  const busTimeM = Number(busTime.slice(2, 4));
 
   let leftHour = 0,
     leftMin = 0;
