@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 import {
   BarAreaMarginTop,
   BarImgStyle,
@@ -166,9 +166,10 @@ export const LinePoint = styled.Image`
   background-color: transparent;
 `;
 
-export const BusLine = styled.View`
+export const BusLine = styled.View<{isStart: boolean; isEnd: boolean}>`
   width: 4px;
-  height: 100%;
+  margin-top: ${props => (props.isStart || props.isStart ? 36 : 0)}px;
+  height: ${props => (props.isEnd || props.isStart ? 36 : 71)}px;
   background-color: ${({theme}) => theme.color.line};
 `;
 

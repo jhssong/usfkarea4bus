@@ -2,25 +2,32 @@ import React from 'react';
 import * as Styles from '../../styles/BusStopStyle';
 import {StopList} from '../../utils/constants';
 import getTimeInfo from '../../utils/getTimeInfo';
+import {useRecoilState} from 'recoil';
+import {selectedStopState} from '../../stores/atom';
 
-// 여기서 필요한건 stop 이름, 색칠해야되는지 여부
 // 특정 정류장 클릭 시 selectedStop을 그걸로 변경하고 이 창은 닫기
 export default function LineDetailInfo({
+  isStart,
+  isEnd,
   isPoint,
   isAfter,
   stopID,
   timeHM,
   busTime,
+  handlePressable,
 }) {
+  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const camp = getCamp(stopID);
   const name = getName(stopID);
   const time = getTime(timeHM, busTime);
 
   return (
-    <Styles.DetailPressable isPoint={isPoint}>
+    <Styles.DetailPressable
+      isPoint={isPoint}
+      onPress={() => handlePressable(stopID)}>
       <Styles.LineView>
         <Styles.LinePoint source={require('../../assets/img/point.png')} />
-        <Styles.BusLine />
+        <Styles.BusLine isStart={isStart} isEnd={isEnd} />
       </Styles.LineView>
 
       <Styles.DetailInfoView>

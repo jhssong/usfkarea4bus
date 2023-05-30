@@ -6,9 +6,12 @@ import * as Styles from '../../styles/BusStopStyle';
 import useBusStopData from '../../utils/hooks/useBusStopData';
 import useTime from '../../utils/hooks/useTime';
 import {ScrollView} from 'react-native';
+import {selectedStopState} from '../../stores/atom';
+import {useRecoilState} from 'recoil';
 
 // TODO [med] fix unneccessary rendering is happen at here (use console.log)
 export default function LineDetail({lineData, isVisible, closeFunction}) {
+  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   let scrollViewRef = useRef<ScrollView>(null);
   const {lineDetail} = useBusStopData('line', lineData);
   const {timeHM} = useTime();
@@ -16,6 +19,11 @@ export default function LineDetail({lineData, isVisible, closeFunction}) {
   function scrollToPoint() {
     if (scrollViewRef.current !== null)
       scrollViewRef.current.scrollTo({y: (lineData.stopIndex - 1) * 70 - 35});
+  }
+
+  function selectStopinDetail(id: string) {
+    setSelectedStop(id);
+    closeFunction();
   }
 
   return (
@@ -35,11 +43,14 @@ export default function LineDetail({lineData, isVisible, closeFunction}) {
           {lineDetail.stopList.map((stopID, index) => {
             return (
               <LineItemInfo
+                isStart={index === 0}
+                isEnd={index === Object.keys(lineDetail.stopList).length - 1}
                 isPoint={lineData.stopIndex === index}
                 isAfter={lineData.stopIndex <= index}
                 stopID={stopID}
                 timeHM={timeHM}
                 busTime={lineDetail.scheduleList[index]}
+                handlePressable={selectStopinDetail}
                 key={index}
               />
             );
