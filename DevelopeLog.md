@@ -163,7 +163,41 @@ return (
 )
 ```
 
-결론적으론 blur()를 먼저 하고 focus()를 해야한다는건데 아직 명확한 이유는 모르겠다. 나중에 react native를 깊게 다룰 기회가 있다면 한번 공부해보고 싶다.
+결론적으론 `blur()`를 먼저 하고 `focus()`를 해야한다는건데 아직 명확한 이유는 모르겠다. 나중에 react native를 깊게 다룰 기회가 있다면 한번 공부해보고 싶다.
+
+---
+
+## unable to load script make sure you're either running metro or that your bundle 'index.android.bundle' is packaged correctly for release.(23.06.11)
+
+### Problem
+
+```bash
+$ unable to load script make sure you're either running metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+```
+
+프로젝트 `git clone`과 `npm intall`까지 진행 후 `npx react-native run-android` 명령어 실행 시 위와 같은 오류가 발생하였다.
+
+### Solution
+
+구글에 해당 에러 메세지를 검색해본 다음과 같은 [해결책](https://dlevelb.tistory.com/1142)을 얻었다.
+
+1. 프로젝트 폴더로 이동 후 `android/app/src/main/assets` 폴더가 존재하는지 확인 후 없으면 생성
+2. 만약 위 폴더가 존재한다면 `index.android.bundle`과 `index.android.bundle.meta` 파일 제거
+3. 프로젝트 폴더 경로에서 다음 명령어 수행
+
+```bash
+$ cd android
+$ ./gradlew clean
+```
+
+4. 다시 프로젝트 폴더 경로로 와서 다음 명령어 수행
+
+```bash
+$ react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+
+위와 같은 과정을 통해 오류를 해결하였다.
+기존 github 코드에 왜 해당 폴더가 없었는지는 알 수 없으나 문제 해결 후 push하니 github에도 정상적으로 assets폴더가 생성되었음을 확인했다.
 
 ---
 
