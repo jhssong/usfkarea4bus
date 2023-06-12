@@ -1,69 +1,65 @@
 import styled, {css} from 'styled-components/native';
 import {
-  BarAreaMarginTop,
-  BarImgStyle,
-  BarLeft,
   BarTop,
+  BarLeft,
   BarWidth,
+  BarHeight,
+  BarTextAreaWidth,
+  BarTextAreaHorizontal,
+  BarAreaMarginTop,
+  BarImgViewSize,
+  DefaultFontBold,
+  DefaultBorderRadius,
+  WIDTH,
 } from './GlobalStyle';
 
-const defaultBarStyle = css`
+const BarStyle = css`
   position: absolute;
   top: ${BarTop}px;
   left: ${BarLeft}px;
   width: ${BarWidth}px;
-  height: 50px;
+  height: ${BarHeight}px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
-  border-radius: ${({theme}) => theme.bar.barBorderRadius};
+  border-radius: ${DefaultBorderRadius}px;
   background-color: ${({theme}) => theme.color.background};
 `;
 
-const defaultBarTextStyle = css`
-  width: ${BarWidth * 0.76}px;
-  margin: 0 ${BarWidth * 0.02}px;
-  padding: 0;
+const BarTextStyle = css`
+  width: ${BarTextAreaWidth}px;
+  height: ${BarHeight}px;
+  padding: 0 ${BarTextAreaHorizontal}px;
+  align-items: center;
+  justify-content: center;
+  line-height: ${BarHeight}px;
   color: ${({theme}) => theme.color.textBlack};
   font-size: ${({theme}) => theme.fontSize.md};
 `;
 
-export const BarPressable = styled.Pressable`
-  ${defaultBarStyle};
+export const SearchBar = styled.Pressable`
+  ${BarStyle};
   elevation: 4;
 `;
 
-export const BarImgPressable = styled.Pressable`
-  width: ${BarWidth * 0.1}px;
-  height: ${BarWidth * 0.1}px;
-  justify-content: center;
-  align-items: center;
-`;
-export const BarImg = styled.Image`
-  ${BarImgStyle}
+export const SearchBarText = styled.Text`
+  ${BarTextStyle};
 `;
 
-export const BigBarImg = styled.Image`
-  width: 65%;
-  height: 65%;
-`;
-
-export const BarText = styled.Text`
-  ${defaultBarTextStyle};
-`;
-
-export const BarTextInput = styled.TextInput`
-  ${defaultBarTextStyle};
+export const Modal = styled.View`
+  flex: 1;
+  background-color: ${({theme}) => theme.color.background};
 `;
 
 export const ModalBar = styled.View`
-  ${defaultBarStyle};
+  ${BarStyle};
   border: 1px solid ${({theme}) => theme.color.border};
 `;
 
-export const ModalView = styled.View`
-  flex: 1;
-  background-color: ${({theme}) => theme.color.background};
+export const BarTextInput = styled.TextInput`
+  ${BarTextStyle};
+  font-weight: ${DefaultFontBold};
 `;
 
 export const ResultScrollView = styled.ScrollView`
@@ -71,28 +67,27 @@ export const ResultScrollView = styled.ScrollView`
 `;
 
 export const ResultPressable = styled.Pressable`
+  height: ${BarHeight}px;
   flex-direction: row;
   align-items: center;
-  padding: 14px ${4 + BarLeft}px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${({theme}) => theme.color.border};
 `;
 
 export const ResultImgView = styled.View`
-  width: 30px;
-  height: 30px;
+  width: ${BarImgViewSize}px;
+  height: ${BarHeight}px;
+  margin-left: ${BarLeft}px;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
-  background-color: ${({theme}) => theme.color.blue};
 `;
 
 export const ResultImg = styled.Image`
-  width: 12px;
-  height: 12px;
+  width: 50%;
+  height: 50%;
 `;
 
 export const ResultText = styled.Text`
-  ${defaultBarTextStyle};
-  margin-left: ${4 + BarLeft}px;
+  ${BarTextStyle};
+  width: ${WIDTH - BarImgViewSize - BarLeft}px;
+  border-bottom-width: 0.4px;
+  border-bottom-color: ${({theme}) => theme.color.border};
 `;

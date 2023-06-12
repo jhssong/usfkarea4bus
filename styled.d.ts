@@ -20,9 +20,5 @@ declare module 'styled-components/native' {
       lightBlue: string;
       orange: string;
     };
-
-    bar: {
-      barBorderRadius: string;
-    };
   }
 }

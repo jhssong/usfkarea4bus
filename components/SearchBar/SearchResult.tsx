@@ -1,11 +1,12 @@
 import React from 'react';
-import {useRecoilState} from 'recoil';
+import {View, Text} from 'react-native';
+import {useSetRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
-import * as Styles from '../../styles/SearchBarStyle';
-import * as Constants from '../../utils/constants';
+import * as S from '../../styles/SearchBarStyle';
+import * as C from '../../utils/constants';
 
 export default function SearchResult({result, closeFunction}) {
-  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
+  const setSelectedStop = useSetRecoilState(selectedStopState);
 
   function handleResult(stopID: string) {
     setSelectedStop(stopID);
@@ -13,25 +14,22 @@ export default function SearchResult({result, closeFunction}) {
   }
 
   function handleResultText(ID: string): string {
-    const stop = Constants.StopList[ID];
+    const stop = C.StopList[ID];
     return `${stop.camp} #${stop.num} - ${stop.name}`;
   }
 
   return (
-    <Styles.ResultScrollView>
+    <S.ResultScrollView>
       {result.map((stopID: string, key: number) => {
         return (
-          <Styles.ResultPressable
-            key={key}
-            onPress={() => handleResult(stopID)}>
-            <Styles.ResultImgView>
-              <Styles.ResultImg source={Constants.BusImgSrc} />
-            </Styles.ResultImgView>
-
-            <Styles.ResultText>{handleResultText(stopID)}</Styles.ResultText>
-          </Styles.ResultPressable>
+          <S.ResultPressable key={key} onPress={() => handleResult(stopID)}>
+            <S.ResultImgView>
+              <S.ResultImg source={C.BusSearchImgSrc} />
+            </S.ResultImgView>
+            <S.ResultText>{handleResultText(stopID)}</S.ResultText>
+          </S.ResultPressable>
         );
       })}
-    </Styles.ResultScrollView>
+    </S.ResultScrollView>
   );
 }

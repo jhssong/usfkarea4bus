@@ -1,9 +1,9 @@
 import React from 'react';
-import * as Styles from '../../styles/BusStopStyle';
-import {StopList} from '../../utils/constants';
-import getTimeInfo from '../../utils/getTimeInfo';
 import {useRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
+import * as S from '../../styles/BusLineStyle';
+import {StopList} from '../../utils/constants';
+import getTimeInfo from '../../utils/getTimeInfo';
 
 // 특정 정류장 클릭 시 selectedStop을 그걸로 변경하고 이 창은 닫기
 export default function LineDetailInfo({
@@ -22,22 +22,22 @@ export default function LineDetailInfo({
   const time = getTime(timeHM, busTime);
 
   return (
-    <Styles.DetailPressable
+    <S.DetailPressable
       isPoint={isPoint}
       onPress={() => handlePressable(stopID)}>
-      <Styles.LineView>
-        <Styles.LinePoint source={require('../../assets/img/point.png')} />
-        <Styles.BusLine isStart={isStart} isEnd={isEnd} />
-      </Styles.LineView>
+      <S.LineView>
+        <S.LinePoint source={require('../../assets/img/point.png')} />
+        <S.BusLine isStart={isStart} isEnd={isEnd} />
+      </S.LineView>
 
-      <Styles.DetailInfoView>
-        <Styles.DetailInfoTextView>
-          <Styles.DetailCampText>CP {camp}</Styles.DetailCampText>
-          <Styles.DetailNameText>{name}</Styles.DetailNameText>
-        </Styles.DetailInfoTextView>
-        {isAfter && <Styles.TimeText>{time}</Styles.TimeText>}
-      </Styles.DetailInfoView>
-    </Styles.DetailPressable>
+      <S.DetailInfoView>
+        <S.DetailInfoTextView>
+          <S.DetailCampText>CP {camp}</S.DetailCampText>
+          <S.DetailNameText>{name}</S.DetailNameText>
+        </S.DetailInfoTextView>
+        {isAfter && <S.TimeText>{time}</S.TimeText>}
+      </S.DetailInfoView>
+    </S.DetailPressable>
   );
 }
 

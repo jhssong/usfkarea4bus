@@ -4,22 +4,16 @@ import styled, {css} from 'styled-components/native';
 export const WIDTH = Dimensions.get('window').width;
 export const HEIGHT = Dimensions.get('window').height;
 
-export const BarTop = HEIGHT * 0.02;
-export const BarLeft = WIDTH * 0.04;
+export const BarTop = 16;
+export const BarLeft = 8;
 export const BarWidth = WIDTH - BarLeft * 2;
-export const BarAreaMarginTop = 50 + HEIGHT * 0.04;
+export const BarHeight = 48;
 
-export const BarImgStyle = css`
-  width: 50%;
-  height: 50%;
-`;
+export const BarTextAreaWidth = BarWidth * 0.8;
+export const BarTextAreaHorizontal = BarWidth * 0.01;
+export const BarImgViewSize = BarWidth * 0.1;
 
-export const DefaultTextStyle = css`
-  color: ${({theme}) => theme.color.textBlack};
-  font-size: ${({theme}) => theme.fontSize.md};
-`;
+export const BarAreaMarginTop = BarHeight + BarTop * 2;
 
-export const DefaultLightTextStyle = css`
-  color: ${({theme}) => theme.color.lightTextBlack};
-  font-size: ${({theme}) => theme.fontSize.md};
-`;
+export const DefaultBorderRadius = 10;
+export const DefaultFontBold = 600;

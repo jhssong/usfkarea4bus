@@ -1,13 +1,13 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
+import {useRecoilState} from 'recoil';
+import {selectedStopState} from '../../stores/atom';
 import Modal from '../Modal';
-import BackImg from './BackImg';
 import LineItemInfo from './LineDetailInfo';
-import * as Styles from '../../styles/BusStopStyle';
+import * as S from '../../styles/BusLineStyle';
 import useBusStopData from '../../utils/hooks/useBusStopData';
 import useTime from '../../utils/hooks/useTime';
 import {ScrollView} from 'react-native';
-import {selectedStopState} from '../../stores/atom';
-import {useRecoilState} from 'recoil';
+import {BarAreaMarginTop} from '../../styles/GlobalStyle';
 
 // TODO [med] fix unneccessary rendering is happen at here (use console.log)
 export default function LineDetail({lineData, isVisible, closeFunction}) {
@@ -28,17 +28,14 @@ export default function LineDetail({lineData, isVisible, closeFunction}) {
 
   return (
     <Modal isVisible={isVisible} closeFunction={closeFunction}>
-      <Styles.Modal full={true}>
-        <BackImg closeFunction={closeFunction} />
-
-        <Styles.Header full={true}>
-          <Styles.HeaderText full={true}>{lineData.busName}</Styles.HeaderText>
-        </Styles.Header>
-
-        {/* TODO [low] add current bus location
-         */}
-        <Styles.DetailList
+      <S.Modal>
+        <S.Header>
+          <S.HeaderText>{lineData.busName}</S.HeaderText>
+        </S.Header>
+        {/* TODO [low] add current bus location */}
+        <S.DetailList
           ref={scrollViewRef}
+          contentContainerStyle={{paddingVertical: BarAreaMarginTop}}
           onContentSizeChange={scrollToPoint}>
           {lineDetail.stopList.map((stopID, index) => {
             return (
@@ -55,8 +52,8 @@ export default function LineDetail({lineData, isVisible, closeFunction}) {
               />
             );
           })}
-        </Styles.DetailList>
-      </Styles.Modal>
+        </S.DetailList>
+      </S.Modal>
     </Modal>
   );
 }

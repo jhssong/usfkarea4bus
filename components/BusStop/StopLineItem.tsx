@@ -1,13 +1,13 @@
 import React from 'react';
-import * as Styles from '../../styles/BusStopStyle';
+import * as S from '../../styles/BusStopStyle';
 import {StopList} from '../../utils/constants';
 import useTime from '../../utils/hooks/useTime';
 import getTimeInfo from '../../utils/getTimeInfo';
 
 export default function StopLineItem({lineData, itemIndex, openBusLineModal}) {
+  const {timeHM} = useTime();
   const busName = lineData.busName;
   const nextStop = StopList[lineData.nextStopID].name;
-  const {timeHM} = useTime();
   const isNoBus = lineData.nowTime === 'No Bus';
   const now = getTimeInfo(timeHM, lineData.nowTime);
   const next = getTimeInfo(timeHM, lineData.nextTime);
@@ -15,17 +15,16 @@ export default function StopLineItem({lineData, itemIndex, openBusLineModal}) {
   const handleItem = () => openBusLineModal(itemIndex);
 
   return (
-    <Styles.ItemPressable onPress={handleItem}>
-      <Styles.ItemBusInfo>
-        <Styles.ItemBusText>{busName}</Styles.ItemBusText>
-        <Styles.BusHeadingText>heading to {nextStop}</Styles.BusHeadingText>
-      </Styles.ItemBusInfo>
+    <S.ItemPressable onPress={handleItem}>
+      <S.InfoView>
+        <S.BusText>{busName}</S.BusText>
+        <S.BusHeadingText>heading to {nextStop}</S.BusHeadingText>
+      </S.InfoView>
 
-      <Styles.TimeInfo>
-        <Styles.TimeText noBus={isNoBus}>{now}</Styles.TimeText>
-
-        {!isNoBus && <Styles.TimeText>{next}</Styles.TimeText>}
-      </Styles.TimeInfo>
-    </Styles.ItemPressable>
+      <S.InfoView>
+        <S.TimeText noBus={isNoBus}>{now}</S.TimeText>
+        {!isNoBus && <S.TimeText>{next}</S.TimeText>}
+      </S.InfoView>
+    </S.ItemPressable>
   );
 }

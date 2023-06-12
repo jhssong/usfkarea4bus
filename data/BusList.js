@@ -1,7 +1,7 @@
 const BusList = {
-  CH: 'POST RUN',
-  CW: 'POST RUN',
-  CG: 'POST RUN',
+  CH: 'C↔W POST RUN',
+  CW: 'C↔W POST RUN',
+  CG: 'C↔W POST RUN',
   CHD: 'DFAC RUN',
   CC: 'POST RUN',
   NAK: 'NAKDONG EXPRESS SHUTTLE',

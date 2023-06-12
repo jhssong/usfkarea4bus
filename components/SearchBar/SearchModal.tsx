@@ -3,14 +3,15 @@ import {TextInput} from 'react-native';
 import SearchResult from './SearchResult';
 import Modal from '../Modal';
 import theme from '../../styles/theme';
-import * as Styles from '../../styles/SearchBarStyle';
-import * as Constants from '../../utils/constants';
+import * as S from '../../styles/SearchBarStyle';
+import * as C from '../../utils/constants';
+import BarImg from '../BarImg';
 
 export default function SearchModal(props) {
   const {isVisible, closeFunction} = props;
-  let textInputRef = useRef<TextInput>(null);
   const [value, setValue] = useState<string>();
   const [result, setResult] = useState<string[]>([]);
+  let textInputRef = useRef<TextInput>(null);
 
   const handleBackBtn = () => closeFunction();
 
@@ -30,13 +31,13 @@ export default function SearchModal(props) {
       return;
     }
 
-    Object.keys(Constants.StopList).map(id => {
+    Object.keys(C.StopList).map(id => {
       if (id === 'CHTMP') return;
 
       const stopID = id.toLocaleLowerCase();
-      const stopCamp = Constants.StopList[id].camp.toLowerCase();
-      const stopNum = Constants.StopList[id].num;
-      const stopName = Constants.StopList[id].name.toLowerCase();
+      const stopCamp = C.StopList[id].camp.toLowerCase();
+      const stopNum = C.StopList[id].num;
+      const stopName = C.StopList[id].name.toLowerCase();
 
       const checkStop = stopID.includes(searchValue);
       const checkCP = stopCamp.includes(searchValue);
@@ -64,24 +65,25 @@ export default function SearchModal(props) {
 
   return (
     <Modal isVisible={isVisible} closeFunction={closeFunction}>
-      <Styles.ModalView>
-        {/* Search Bar Area */}
-        <Styles.ModalBar>
-          <Styles.BarImgPressable onPress={handleBackBtn}>
-            <Styles.BarImg source={Constants.BackImgSrc} />
-          </Styles.BarImgPressable>
-
-          <Styles.BarTextInput
+      <S.Modal>
+        <BarImg
+          alignLeft={true}
+          size={50}
+          src={C.BackImgSrc}
+          handlePress={handleBackBtn}
+        />
+        <S.ModalBar>
+          <S.BarTextInput
             ref={textInputRef}
-            placeholder={Constants.InitBarText}
+            placeholder={C.InitBarText}
             placeholderTextColor={theme.color.lightTextBlack}
             onChangeText={onChangeValue}
           />
-        </Styles.ModalBar>
+        </S.ModalBar>
 
-        {/* Searched Result Area */}
+        {/* SearchResult Component */}
         <SearchResult result={result} closeFunction={closeFunction} />
-      </Styles.ModalView>
+      </S.Modal>
     </Modal>
   );
 }

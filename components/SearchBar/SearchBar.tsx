@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {Alert} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
+import BarImg from '../BarImg';
 import SearchModal from './SearchModal';
-import * as Styles from '../../styles/SearchBarStyle';
-import * as Constants from '../../utils/constants';
+import * as S from '../../styles/SearchBarStyle';
+import * as C from '../../utils/constants';
 import getNearestStop from '../../utils/getNearestStop';
 
 export default function SearchBar() {
@@ -13,7 +15,7 @@ export default function SearchBar() {
 
   // TODO [low] add menu modal (gate info, )
   function handleMenuBtn() {
-    console.log('메뉴');
+    Alert.alert('Not Yet', '', [{text: 'OK'}]);
   }
 
   const handleSearchModal = () => setSearchModalVisible(prev => !prev);
@@ -24,9 +26,9 @@ export default function SearchBar() {
   }
 
   function handleBarText() {
-    if (selectedStop === null) setBarText(Constants.InitBarText);
+    if (selectedStop === null) setBarText(C.InitBarText);
     else {
-      const stop = Constants.StopList[selectedStop];
+      const stop = C.StopList[selectedStop];
       setBarText(`${stop.camp} #${stop.num} - ${stop.name}`);
     }
   }
@@ -35,18 +37,23 @@ export default function SearchBar() {
 
   return (
     <>
-      {/* Search Bar Area */}
-      <Styles.BarPressable onPress={handleSearchModal}>
-        <Styles.BarImgPressable onPress={handleMenuBtn}>
-          <Styles.BarImg source={Constants.MenuImgSrc} />
-        </Styles.BarImgPressable>
+      <BarImg
+        alignLeft={true}
+        size={50}
+        src={C.MenuImgSrc}
+        handlePress={handleMenuBtn}
+      />
 
-        <Styles.BarText>{barText}</Styles.BarText>
+      <S.SearchBar onPress={handleSearchModal}>
+        <S.SearchBarText>{barText}</S.SearchBarText>
+      </S.SearchBar>
 
-        <Styles.BarImgPressable onPress={handleLocImg}>
-          <Styles.BigBarImg source={Constants.LocImgSrc} />
-        </Styles.BarImgPressable>
-      </Styles.BarPressable>
+      <BarImg
+        alignLeft={false}
+        size={65}
+        src={C.LocImgSrc}
+        handlePress={handleLocImg}
+      />
 
       {/* SearchModal Component */}
       <SearchModal

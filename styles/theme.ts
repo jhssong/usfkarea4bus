@@ -19,10 +19,6 @@ const color = {
   orange: '#CE5C37',
 };
 
-const bar = {
-  barBorderRadius: '10px',
-};
-
-const theme: DefaultTheme = {fontSize, color, bar};
+const theme: DefaultTheme = {fontSize, color};
 
 export default theme;
