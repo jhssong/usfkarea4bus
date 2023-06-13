@@ -1,7 +1,9 @@
 import React from 'react';
 import * as S from '../../styles/BusLineStyle';
+import * as C from '../../utils/constants';
 import {StopList} from '../../utils/constants';
 import getTimeInfo from '../../utils/getTimeInfo';
+import useTime from '../../utils/hooks/useTime';
 
 export default function LineDetailInfo({
   isStart,
@@ -9,44 +11,35 @@ export default function LineDetailInfo({
   isPoint,
   isAfter,
   stopID,
-  timeHM,
   busTime,
   handlePressable,
 }) {
-  const camp = getCamp(stopID);
-  const name = getName(stopID);
+  const {timeHM} = useTime();
+  const camp = StopList[stopID].camp;
+  const name = StopList[stopID].name;
   const time = getTime(timeHM, busTime);
 
+  // TODO [low] add current bus location
   return (
-    <S.DetailPressable
-      isPoint={isPoint}
-      onPress={() => handlePressable(stopID)}>
+    <S.DetailPressable isPoint={isPoint} onPress={handlePressable}>
       <S.LineView>
-        <S.LinePoint source={require('../../assets/img/point.png')} />
+        <S.LinePoint source={C.PointSrc} />
         <S.BusLine isStart={isStart} isEnd={isEnd} />
       </S.LineView>
 
-      <S.DetailInfoView>
-        <S.DetailInfoTextView>
-          <S.DetailCampText>CP {camp}</S.DetailCampText>
-          <S.DetailNameText>{name}</S.DetailNameText>
-        </S.DetailInfoTextView>
+      <S.InfoView>
+        <S.InfoTextView>
+          <S.CampText>CP {camp}</S.CampText>
+          <S.NameText>{name}</S.NameText>
+        </S.InfoTextView>
         {isAfter && <S.TimeText>{time}</S.TimeText>}
-      </S.DetailInfoView>
+      </S.InfoView>
     </S.DetailPressable>
   );
 }
 
-function getCamp(stopID: number) {
-  return StopList[stopID].camp;
-}
-
-function getName(stopID: number) {
-  if (stopID === -1) return StopList[stopID].name;
-  else return StopList[stopID].name;
-}
-
 function getTime(timeHM: string, busTime: string) {
-  if (busTime.length === 0) return '';
+  if (busTime.length === 0) return ''; // for TMP
+  else if (busTime === 'x') return 'No Bus';
   else return getTimeInfo(timeHM, busTime);
 }

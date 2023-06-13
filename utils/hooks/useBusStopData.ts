@@ -1,75 +1,24 @@
 import {useEffect, useState} from 'react';
-import {useRecoilState} from 'recoil';
+import {useRecoilValue} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
 import useTime from './useTime';
-import * as Constants from '../../utils/constants';
-
-type MetaData = [string, string[], string[][]];
-const emptyReturn: MetaData = ['', [''], ['']['']];
-
-type LineData = {
-  busName: string;
-  stopID: string | null;
-  nextStopID: string;
-  stopIndex: number;
-  scheduleIndex: number;
-  nowTime: string;
-  nextTime: string;
-};
-
-type StopData = LineData[];
-
-type LineDetail = {
-  stopList: string[];
-  scheduleList: string[];
-};
-
-const emptyLineDetail: LineDetail = {
-  stopList: [],
-  scheduleList: [],
-};
-
-type BusStopVisible = boolean;
+import * as T from '../types';
+import {getMetaData} from '../getMetaData';
 
 export default function useBusStopData(
   type: string,
-  data: BusStopVisible | LineData,
+  data: T.BusStopVisible | T.LineData,
 ) {
-  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
-  const [stopData, setStopData] = useState<StopData>([]);
-  const [lineDetail, setLineDetail] = useState<LineDetail>(emptyLineDetail);
+  const selectedStop = useRecoilValue(selectedStopState);
+  const [stopData, setStopData] = useState<T.StopData>(T.emptyStopData);
+  const [lineDetail, setLineDetail] = useState<T.LineDetail>(T.emptyLineDetail);
   const {timeHM, isHoliday} = useTime();
 
-  function getMetaData(camp: string): MetaData {
-    if ((camp === 'CH' || camp === 'CG' || camp == 'CW') && !isHoliday)
-      return [
-        Constants.BusList[camp],
-        Constants.CH_WeekStop,
-        Constants.CH_WeekSchedule,
-      ];
-    else if ((camp === 'CH' || camp === 'CG' || camp == 'CW') && isHoliday)
-      return [
-        Constants.BusList[camp],
-        Constants.CH_WkndStop,
-        Constants.CH_WkndSchedule,
-      ];
-    else if (camp === 'CHD' && !isHoliday)
-      return [
-        Constants.BusList[camp],
-        Constants.CHD_Stop,
-        Constants.CHD_WeekSchedule,
-      ];
-    else if (camp === 'CHD' && isHoliday)
-      return [
-        Constants.BusList[camp],
-        Constants.CHD_Stop,
-        Constants.CHD_WkndSchedule,
-      ];
-    else return emptyReturn;
-  }
-
   function getStopData(camp: string) {
-    const [busName, stopArr, scheduleArr]: MetaData = getMetaData(camp);
+    const [busName, stopArr, scheduleArr]: T.MetaData = getMetaData(
+      camp,
+      isHoliday,
+    );
 
     let stopIndexArr: number[] = [];
 
@@ -78,7 +27,7 @@ export default function useBusStopData(
 
     for (let stopIndex of stopIndexArr)
       for (let [index, value] of scheduleArr.entries()) {
-        let newLineData: LineData = {
+        let newLineData: T.LineData = {
           busName: busName,
           stopID: selectedStop,
           nextStopID: stopArr[stopIndex + 1],
@@ -88,43 +37,50 @@ export default function useBusStopData(
           nextTime: '',
         };
 
-        const nextTime = (): string => {
-          for (
-            let nextIndex = index + 1;
-            nextIndex < scheduleArr.length;
-            nextIndex++
-          ) {
-            const time: string = scheduleArr[nextIndex][stopIndex];
-            if (time !== '0000') return time;
-          }
-          return 'No Bus';
-        };
-
-        if (value[stopIndex] >= timeHM) {
-          newLineData = {
-            ...newLineData,
-            nowTime: value[stopIndex],
-            nextTime: nextTime(),
+        const nowTime = value[stopIndex];
+        if (nowTime !== 'x' && nowTime >= timeHM) {
+          const getNextTime = (): string => {
+            const len = scheduleArr.length;
+            for (let nextIndex = index + 1; nextIndex < len; nextIndex++) {
+              const nextTime: string = scheduleArr[nextIndex][stopIndex];
+              if (nextTime !== 'x') return nextTime;
+            }
+            return 'No Bus';
           };
 
-          setStopData(prev => [...prev, newLineData]);
+          setStopData(prev => [
+            ...prev,
+            {
+              ...newLineData,
+              nowTime: nowTime,
+              nextTime: getNextTime(),
+            },
+          ]);
+
           break;
         }
+
+        // if there isn't bus anymore today
         if (index + 1 === scheduleArr.length) {
-          newLineData = {...newLineData, nowTime: 'No Bus', nextTime: 'No Bus'};
-          setStopData(prev => [...prev, newLineData]);
+          setStopData(prev => [
+            ...prev,
+            {...newLineData, nowTime: 'No Bus', nextTime: 'No Bus'},
+          ]);
         }
       }
   }
 
   function getCHDStopData(camp: string) {
-    const [busName, stopArr, scheduleArr]: MetaData = getMetaData(camp);
+    const [busName, stopArr, scheduleArr]: T.MetaData = getMetaData(
+      camp,
+      isHoliday,
+    );
 
     const stopIndex = selectedStop === stopArr[0] ? 0 : 1;
     const schedule = scheduleArr[stopIndex];
 
     for (let [index, value] of schedule.entries()) {
-      let newLineData: LineData = {
+      let newLineData: T.LineData = {
         busName: busName,
         stopID: selectedStop,
         nextStopID: stopArr[stopIndex === 0 ? 1 : 0],
@@ -134,33 +90,34 @@ export default function useBusStopData(
         nextTime: '',
       };
 
-      const nextTime = (): string => {
-        return schedule[++index] ?? 'No Bus';
-      };
-
       if (value >= timeHM) {
-        newLineData = {
-          ...newLineData,
-          nowTime: value,
-          nextTime: nextTime(),
-        };
-        setStopData(prev => [...prev, newLineData]);
+        setStopData(prev => [
+          ...prev,
+          {
+            ...newLineData,
+            nowTime: value,
+            nextTime: schedule[++index] ?? 'No Bus',
+          },
+        ]);
+
         break;
       }
 
       if (index + 1 === schedule.length) {
-        newLineData = {
-          ...newLineData,
-          nowTime: 'No Bus',
-          nextTime: 'No Bus',
-        };
-        setStopData(prev => [...prev, newLineData]);
+        setStopData(prev => [
+          ...prev,
+          {
+            ...newLineData,
+            nowTime: 'No Bus',
+            nextTime: 'No Bus',
+          },
+        ]);
       }
     }
   }
 
-  function getLineDetail(camp: string, lineData: LineData) {
-    const [x, stopList, scheduleArr]: MetaData = getMetaData(camp);
+  function getLineDetail(camp: string, lineData: T.LineData) {
+    const [x, stopList, scheduleArr]: T.MetaData = getMetaData(camp, isHoliday);
     const scheduleList = scheduleArr[lineData.scheduleIndex];
     setLineDetail({stopList, scheduleList});
   }
@@ -169,12 +126,15 @@ export default function useBusStopData(
   useEffect(() => {
     setStopData([]);
     if (selectedStop === null) return;
-    // CH, CW, CG, CC POST RUN
+
+    // for CH, CW, CG, CC POST RUN
     getStopData(selectedStop[0] + selectedStop[1]);
-    // CH DFAC RUN
+
+    // for CH DFAC RUN
     if (selectedStop === 'CH1' || selectedStop === 'CW11')
       getCHDStopData('CHD');
-    // NAK
+
+    // for NAK
     if (false) {
     }
   }, [selectedStop, timeHM, isHoliday]);

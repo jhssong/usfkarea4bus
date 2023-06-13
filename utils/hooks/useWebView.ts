@@ -1,5 +1,4 @@
-import React from 'react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {WebView, WebViewMessageEvent} from 'react-native-webview';
 import {useRecoilState} from 'recoil';
 import {CampLatLng, StopLatLng} from '../../utils/constants';

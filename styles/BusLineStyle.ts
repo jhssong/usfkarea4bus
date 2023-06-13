@@ -31,7 +31,7 @@ export const DetailPressable = styled.Pressable<{isPoint: boolean}>`
 `;
 
 export const LineView = styled.View`
-  width: 30%;
+  width: 24%;
   height: 71px;
   align-items: center;
 `;
@@ -47,14 +47,15 @@ export const LinePoint = styled.Image`
 
 export const BusLine = styled.View<{isStart: boolean; isEnd: boolean}>`
   width: 4px;
-  margin-top: ${props => (props.isStart || props.isStart ? 36 : 0)}px;
+  margin-top: ${props => (props.isStart ? 36 : 0)}px;
   height: ${props => (props.isEnd || props.isStart ? 36 : 71)}px;
   background-color: ${({theme}) => theme.color.line};
 `;
 
-export const DetailInfoView = styled.View`
-  width: 70%;
+export const InfoView = styled.View`
+  width: 76%;
   height: 100%;
+  padding: 14px 8px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -62,14 +63,14 @@ export const DetailInfoView = styled.View`
   border-bottom-color: ${({theme}) => theme.color.border};
 `;
 
-export const DetailInfoTextView = styled.View`
+export const InfoTextView = styled.View`
   flex-direction: column;
 `;
 
-export const DetailCampText = styled.Text`
+export const CampText = styled.Text`
   ${DefaultLightText}
 `;
 
-export const DetailNameText = styled.Text`
+export const NameText = styled.Text`
   ${DefaultText}
 `;
