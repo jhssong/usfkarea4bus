@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {useRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
 import Modal from '../Modal';
-import TimeController from '../TimeController';
 import StopLineItem from './StopLineItem';
+import TimeController from '../TimeController';
 import LineDetail from '../BusLine/LineDetail';
 import * as S from '../../styles/BusStopStyle';
 import * as C from '../../utils/constants';
-import {StopList} from '../../utils/constants';
 import useBusStopData from '../../utils/hooks/useBusStopData';
 
 export default function StopInfo() {
@@ -36,7 +35,7 @@ export default function StopInfo() {
   useEffect(() => {
     if (selectedStop === null) setBusStopVisible(false);
     else {
-      const stop = StopList[selectedStop];
+      const stop = C.StopList[selectedStop];
       setHeaderText(`Stop ${stop.num} - ${stop.name}`);
       setBusStopVisible(true);
     }

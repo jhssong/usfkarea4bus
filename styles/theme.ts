@@ -1,11 +1,15 @@
 import {DefaultTheme} from 'styled-components/native';
 
 const fontSize = {
-  xs: '12px',
-  sm: '14px',
+  sm: '12px',
   md: '16px',
-  lg: '18px',
-  xl: '24px',
+  lg: '20px',
+};
+
+const lineHegiht = {
+  sm: '18px',
+  md: '24px',
+  lg: '30px',
 };
 
 const color = {
@@ -19,6 +23,6 @@ const color = {
   orange: '#CE5C37',
 };
 
-const theme: DefaultTheme = {fontSize, color};
+const theme: DefaultTheme = {fontSize, lineHegiht, color};
 
 export default theme;

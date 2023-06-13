@@ -7,7 +7,6 @@ import * as S from '../../styles/BusLineStyle';
 import useBusStopData from '../../utils/hooks/useBusStopData';
 import useTime from '../../utils/hooks/useTime';
 import {ScrollView} from 'react-native';
-import {BarAreaMarginTop} from '../../styles/GlobalStyle';
 
 // TODO [med] fix unneccessary rendering is happen at here (use console.log)
 export default function LineDetail({lineData, isVisible, closeFunction}) {
@@ -33,10 +32,7 @@ export default function LineDetail({lineData, isVisible, closeFunction}) {
           <S.HeaderText>{lineData.busName}</S.HeaderText>
         </S.Header>
         {/* TODO [low] add current bus location */}
-        <S.DetailList
-          ref={scrollViewRef}
-          contentContainerStyle={{paddingVertical: BarAreaMarginTop}}
-          onContentSizeChange={scrollToPoint}>
+        <S.DetailList ref={scrollViewRef} onContentSizeChange={scrollToPoint}>
           {lineDetail.stopList.map((stopID, index) => {
             return (
               <LineItemInfo

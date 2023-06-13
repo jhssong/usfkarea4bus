@@ -2,8 +2,7 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 import {WebView, WebViewMessageEvent} from 'react-native-webview';
 import {useRecoilState} from 'recoil';
-import CampLatLng from '../../data/CampLatLng';
-import StopLatLng from '../../data/StopLatLng';
+import {CampLatLng, StopLatLng} from '../../utils/constants';
 import {selectedStopState} from '../../stores/atom';
 
 type LatLng = {[key: string]: number[]};

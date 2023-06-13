@@ -1,3 +1,24 @@
+import BusList from '../data/BusList';
+import StopList from '../data/StopList';
+import CampLatLng from '../data/CampLatLng';
+import StopLatLng from '../data/StopLatLng';
+
+export {BusList, StopList, CampLatLng, StopLatLng};
+
+import {CH_WeekStop, CH_WkndStop, CHD_Stop} from '../data/CH_StopList';
+import {CH_WeekSchedule, CH_WkndSchedule} from '../data/CH_ScheduleList';
+import {CHD_WeekSchedule, CHD_WkndSchedule} from '../data/CH_ScheduleList';
+
+export {
+  CH_WeekStop,
+  CH_WkndStop,
+  CHD_Stop,
+  CH_WeekSchedule,
+  CH_WkndSchedule,
+  CHD_WeekSchedule,
+  CHD_WkndSchedule,
+};
+
 export const InitBarText = 'Search Bus Stop';
 
 export const MenuImgSrc = require('../assets/img/menu.png');
@@ -14,27 +35,3 @@ window.onerror = function(message, sourcefile, lineno, colno, error) {
 };
 true;
 `;
-
-import BusList from '../data/BusList';
-export {BusList};
-
-import StopList from '../data/StopList';
-export {StopList};
-
-import {CH_WeekStop, CH_WkndStop, CHD_Stop} from '../data/CH_StopList';
-import {
-  CH_WeekSchedule,
-  CH_WkndSchedule,
-  CHD_WeekSchedule,
-  CHD_WkndSchedule,
-} from '../data/CH_ScheduleList';
-
-export {
-  CH_WeekStop,
-  CH_WkndStop,
-  CHD_Stop,
-  CH_WeekSchedule,
-  CH_WkndSchedule,
-  CHD_WeekSchedule,
-  CHD_WkndSchedule,
-};

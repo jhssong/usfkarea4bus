@@ -9,11 +9,11 @@ import * as C from '../../utils/constants';
 import getNearestStop from '../../utils/getNearestStop';
 
 export default function SearchBar() {
+  const [barText, setBarText] = useState<string>();
   const [searchModalVisible, setSearchModalVisible] = useState<boolean>();
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
-  const [barText, setBarText] = useState<string>();
 
-  // TODO [low] add menu modal (gate info, )
+  // TODO [low] add menu modal (gate info, etc)
   function handleMenuBtn() {
     Alert.alert('Not Yet', '', [{text: 'OK'}]);
   }

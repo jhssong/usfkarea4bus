@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {useSetRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
 import * as S from '../../styles/SearchBarStyle';

@@ -35,7 +35,7 @@ export default function TimeController() {
 }
 
 const TimeHeader = styled.View`
-  padding: ${BarLeft}px;
+  padding: 8px 16px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -44,8 +44,7 @@ const TimeHeader = styled.View`
 `;
 
 const TimePickerPressable = styled.Pressable`
-  width: ${WIDTH - 120}px;
-  // padding: ${BarTop}px ${BarLeft}px;
+  width: ${WIDTH - 120 - 32}px;
   flex-direction: row;
   align-items: center;
 `;
@@ -53,10 +52,12 @@ const TimePickerPressable = styled.Pressable`
 const CheckBoxPressable = styled.Pressable`
   width: 120px;
   flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
 `;
 
 const TimeHeaderText = styled.Text`
   color: ${({theme}) => theme.color.lightTextBlack};
   font-size: ${({theme}) => theme.fontSize.md};
+  line-height: ${({theme}) => theme.lineHegiht.md};
 `;

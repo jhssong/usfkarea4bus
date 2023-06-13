@@ -1,11 +1,8 @@
 import React from 'react';
-import {useRecoilState} from 'recoil';
-import {selectedStopState} from '../../stores/atom';
 import * as S from '../../styles/BusLineStyle';
 import {StopList} from '../../utils/constants';
 import getTimeInfo from '../../utils/getTimeInfo';
 
-// 특정 정류장 클릭 시 selectedStop을 그걸로 변경하고 이 창은 닫기
 export default function LineDetailInfo({
   isStart,
   isEnd,
@@ -16,7 +13,6 @@ export default function LineDetailInfo({
   busTime,
   handlePressable,
 }) {
-  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const camp = getCamp(stopID);
   const name = getName(stopID);
   const time = getTime(timeHM, busTime);

@@ -3,11 +3,19 @@ import 'styled-components/native';
 declare module 'styled-components/native' {
   export interface DefaultTheme {
     fontSize: {
-      xs: string;
+      // xs: string;
       sm: string;
       md: string;
       lg: string;
-      xl: string;
+      // xl: string;
+    };
+
+    lineHegiht: {
+      // xs: string;
+      sm: string;
+      md: string;
+      lg: string;
+      // xl: string;
     };
 
     color: {

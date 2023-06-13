@@ -1,12 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {
-  BarTop,
-  BarLeft,
-  BarHeight,
-  BarImgViewSize,
-  BarTextAreaWidth,
-} from '../styles/GlobalStyle';
+import {BarTop, BarLeft, BarHeight, BarWidth} from '../styles/GlobalStyle';
 
 export default function BarImg({alignLeft, size, src, handlePress}) {
   return (
@@ -17,25 +11,24 @@ export default function BarImg({alignLeft, size, src, handlePress}) {
     </ImgView>
   );
 }
+const BarRight = BarLeft + BarWidth * 0.1 + BarWidth * 0.8;
+const BarImgViewSize = `${BarWidth * 0.1}px`;
 
 const ImgView = styled.View<{alignLeft: boolean}>`
   position: absolute;
   top: ${BarTop}px;
-  left: ${props =>
-    props.alignLeft ? BarLeft : BarLeft + BarImgViewSize + BarTextAreaWidth}px;
-  width: ${BarImgViewSize}px;
+  left: ${props => (props.alignLeft ? BarLeft : BarRight)}px;
+  width: ${BarImgViewSize};
   height: ${BarHeight}px;
   justify-content: center;
-  // background-color: green;
   z-index: 2;
 `;
 
 const ImgPressable = styled.Pressable`
-  width: ${BarImgViewSize}px;
-  height: ${BarImgViewSize}px;
+  width: ${BarImgViewSize};
+  height: ${BarImgViewSize};
   justify-content: center;
   align-items: center;
-  // background-color: red;
 `;
 
 const Img = styled.Image<{size: number}>`

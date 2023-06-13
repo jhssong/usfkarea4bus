@@ -1,4 +1,4 @@
-import StopLatLng from '../data/StopLatLng';
+import {StopLatLng} from '../utils/constants';
 import getCurrentLatLng from './getCurrentLatLng';
 
 // TODO [low] add requestAuthorization function at config page

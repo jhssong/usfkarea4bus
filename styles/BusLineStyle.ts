@@ -1,46 +1,24 @@
 import styled from 'styled-components/native';
 import {
-  HEIGHT,
-  BarTop,
-  BarLeft,
-  BarWidth,
-  DefaultFontBold,
-  BarAreaMarginTop,
+  Header,
+  HeaderText,
+  TimeText,
+  DefaultLightText,
+  DefaultText,
 } from './GlobalStyle';
 
 export const Modal = styled.Pressable`
-  height: ${HEIGHT}px;
+  flex: 1;
   background-color: ${({theme}) => theme.color.background};
 `;
 
-export const Header = styled.View`
-  width: 100%;
-  height: ${BarTop * 2 + 24}px;
-  flex-direction: row;
-  justify-content: center;
-  align-self: center;
-  padding: ${BarTop}px ${BarLeft}px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${({theme}) => theme.color.border};
-`;
+export {Header, HeaderText, TimeText};
 
-export const HeaderText = styled.Text`
-  line-height: 24px;
-  color: ${({theme}) => theme.color.textBlack};
-  font-size: ${({theme}) => theme.fontSize.lg};
-  font-weight: ${DefaultFontBold};
-`;
-
-export const TimeText = styled.Text<{noBus?: boolean}>`
-  color: ${props =>
-    props.noBus
-      ? ({theme}) => theme.color.lightTextBlack
-      : ({theme}) => theme.color.orange};
-  font-size: ${({theme}) => theme.fontSize.md};
-  line-height: 24px;
-`;
-
-export const DetailList = styled.ScrollView``;
+export const DetailList = styled.ScrollView.attrs(props => ({
+  contentContainerStyle: {
+    paddingVertical: 60,
+  },
+}))``;
 
 export const DetailPressable = styled.Pressable<{isPoint: boolean}>`
   height: 70px;
@@ -89,11 +67,9 @@ export const DetailInfoTextView = styled.View`
 `;
 
 export const DetailCampText = styled.Text`
-  color: ${({theme}) => theme.color.lightTextBlack};
-  font-size: ${({theme}) => theme.fontSize.sm};
+  ${DefaultLightText}
 `;
 
 export const DetailNameText = styled.Text`
-  color: ${({theme}) => theme.color.textBlack};
-  font-size: ${({theme}) => theme.fontSize.md};
+  ${DefaultText}
 `;

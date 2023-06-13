@@ -1,79 +1,61 @@
 import styled from 'styled-components/native';
 import {
-  HEIGHT,
-  BarTop,
-  BarLeft,
+  WIDTH,
+  Header,
+  HeaderText,
+  TimeText,
   DefaultFontBold,
   DefaultBorderRadius,
-  WIDTH,
+  DefaultText,
+  DefaultLightText,
 } from './GlobalStyle';
 
 export const Modal = styled.Pressable`
-  height: ${HEIGHT * 0.5}px;
-  border-radius: ${DefaultBorderRadius}px;
+  flex: 0.5;
+  flex-direction: column;
+  border-radius: ${DefaultBorderRadius};
   background-color: ${({theme}) => theme.color.background};
 `;
 
-export const Header = styled.View`
-  height: ${BarTop * 3 + 32}px;
-  justify-content: center;
-  align-items: center;
-  padding: ${BarTop}px ${BarLeft}px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${({theme}) => theme.color.border};
-`;
-
-export const HeaderText = styled.Text`
-  line-height: 24px;
-  color: ${({theme}) => theme.color.textBlack};
-  font-size: ${({theme}) => theme.fontSize.lg};
-  font-weight: ${DefaultFontBold};
-`;
+export {Header, HeaderText};
 
 export const HandleBar = styled.View`
   width: 24%;
   height: 4px;
-  margin-bottom: ${BarTop}px;
-  align-self: center;
+  margin-bottom: 16px;
   background-color: ${({theme}) => theme.color.border};
-  border-radius: ${DefaultBorderRadius}px;
+  border-radius: ${DefaultBorderRadius};
 `;
 
 export const StopLineList = styled.ScrollView``;
 
 export const ItemPressable = styled.Pressable`
-  padding: ${BarTop}px ${BarLeft}px;
+  padding: 8px 16px;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   border-bottom-width: 1px;
   border-bottom-color: ${({theme}) => theme.color.border};
 `;
 
-export const InfoView = styled.View`
+export const BusInfoView = styled.View`
+  width: ${WIDTH - 120 - 16 * 2}px;
   height: 48px;
   justify-content: center;
 `;
 
 export const BusText = styled.Text`
-  width: ${WIDTH - 120}px;
-  line-height: 24px;
-  color: ${({theme}) => theme.color.textBlack};
-  font-size: ${({theme}) => theme.fontSize.md};
+  ${DefaultText}
   font-weight: ${DefaultFontBold};
 `;
 
 export const BusHeadingText = styled.Text`
-  color: ${({theme}) => theme.color.lightTextBlack};
-  font-size: ${({theme}) => theme.fontSize.sm};
+  ${DefaultLightText}
 `;
 
-export const TimeText = styled.Text<{noBus?: boolean}>`
+export const TimeInfoView = styled.View`
   width: 120px;
-  line-height: 24px;
-  color: ${props =>
-    props.noBus
-      ? ({theme}) => theme.color.lightTextBlack
-      : ({theme}) => theme.color.orange};
-  font-size: ${({theme}) => theme.fontSize.md};
+  height: 48px;
+  align-items: flex-end;
 `;
+
+export {TimeText};

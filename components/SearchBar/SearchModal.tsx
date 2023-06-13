@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {TextInput} from 'react-native';
-import SearchResult from './SearchResult';
 import Modal from '../Modal';
+import BarImg from '../BarImg';
+import SearchResult from './SearchResult';
 import theme from '../../styles/theme';
 import * as S from '../../styles/SearchBarStyle';
 import * as C from '../../utils/constants';
-import BarImg from '../BarImg';
 
 export default function SearchModal(props) {
   const {isVisible, closeFunction} = props;

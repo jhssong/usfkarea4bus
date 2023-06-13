@@ -1,17 +1,16 @@
 import styled, {css} from 'styled-components/native';
 import {
-  BarTop,
-  BarLeft,
-  BarWidth,
-  BarHeight,
-  BarTextAreaWidth,
-  BarTextAreaHorizontal,
-  BarAreaMarginTop,
-  BarImgViewSize,
+  WIDTH,
   DefaultFontBold,
   DefaultBorderRadius,
-  WIDTH,
+  DefaultText,
 } from './GlobalStyle';
+
+const BarTop = 24;
+const BarLeft = 16;
+const BarWidth = WIDTH - BarLeft * 2;
+const BarHeight = 48;
+const BarAreaMarginTop = `${BarHeight + BarTop * 2}px`;
 
 const BarStyle = css`
   position: absolute;
@@ -23,19 +22,13 @@ const BarStyle = css`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: ${DefaultBorderRadius}px;
+  border-radius: ${DefaultBorderRadius};
   background-color: ${({theme}) => theme.color.background};
 `;
 
 const BarTextStyle = css`
-  width: ${BarTextAreaWidth}px;
-  height: ${BarHeight}px;
-  padding: 0 ${BarTextAreaHorizontal}px;
-  align-items: center;
-  justify-content: center;
-  line-height: ${BarHeight}px;
-  color: ${({theme}) => theme.color.textBlack};
-  font-size: ${({theme}) => theme.fontSize.md};
+  width: ${BarWidth * 0.8}px;
+  ${DefaultText}
 `;
 
 export const SearchBar = styled.Pressable`
@@ -63,17 +56,19 @@ export const BarTextInput = styled.TextInput`
 `;
 
 export const ResultScrollView = styled.ScrollView`
-  margin-top: ${BarAreaMarginTop}px;
+  margin-top: ${BarAreaMarginTop};
 `;
 
 export const ResultPressable = styled.Pressable`
   height: ${BarHeight}px;
   flex-direction: row;
   align-items: center;
+  border-bottom-width: 0.4px;
+  border-bottom-color: ${({theme}) => theme.color.border};
 `;
 
 export const ResultImgView = styled.View`
-  width: ${BarImgViewSize}px;
+  width: ${BarWidth * 0.1}px;
   height: ${BarHeight}px;
   margin-left: ${BarLeft}px;
   justify-content: center;
@@ -87,7 +82,5 @@ export const ResultImg = styled.Image`
 
 export const ResultText = styled.Text`
   ${BarTextStyle};
-  width: ${WIDTH - BarImgViewSize - BarLeft}px;
-  border-bottom-width: 0.4px;
-  border-bottom-color: ${({theme}) => theme.color.border};
+  margin-right: ${BarLeft}px;
 `;
