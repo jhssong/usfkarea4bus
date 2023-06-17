@@ -46,6 +46,6 @@ const CH_WkndStop = [
   'CHTMP',
 ];
 
-const CHD_Stop = ['CW11', 'CH1'];
+const CHD_Stop = ['CHTMP', 'CW11', 'CH1', 'CHTMP'];
 
 export {CH_WeekStop, CH_WkndStop, CHD_Stop};

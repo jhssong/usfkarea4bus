@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {TextInput} from 'react-native';
+import * as S from '../../styles/SearchBarStyle';
+import * as C from '../../utils/constants';
+import * as T from '../../utils/types';
 import Modal from '../Modal';
 import BarImg from '../BarImg';
 import SearchResult from './SearchResult';
-import theme from '../../styles/theme';
-import * as S from '../../styles/SearchBarStyle';
-import * as C from '../../utils/constants';
 
-export default function SearchModal(props) {
+export default function SearchModal(props: T.SearchModalProps) {
   const {isVisible, closeFunction} = props;
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string>('');
   const [result, setResult] = useState<string[]>([]);
   let textInputRef = useRef<TextInput>(null);
 
@@ -18,13 +18,8 @@ export default function SearchModal(props) {
   const onChangeValue = (value: string) => setValue(value);
 
   function searchData() {
-    if (value === undefined || value.length === 0) {
-      setResult([]);
-      return;
-    }
-
     let result: string[] = [];
-    const searchValue = value.toLowerCase().trim();
+    const searchValue = value.toLowerCase().replace(/ /g, '');
 
     if (searchValue.length === 0) {
       setResult([]);
@@ -38,6 +33,8 @@ export default function SearchModal(props) {
       const stopCamp = C.StopList[id].camp.toLowerCase();
       const stopNum = C.StopList[id].num;
       const stopName = C.StopList[id].name.toLowerCase();
+
+      // TODO fix search function that can search word inside of the value
 
       const checkStop = stopID.includes(searchValue);
       const checkCP = stopCamp.includes(searchValue);
@@ -76,12 +73,10 @@ export default function SearchModal(props) {
           <S.BarTextInput
             ref={textInputRef}
             placeholder={C.InitBarText}
-            placeholderTextColor={theme.color.lightTextBlack}
             onChangeText={onChangeValue}
           />
         </S.ModalBar>
 
-        {/* SearchResult Component */}
         <SearchResult result={result} closeFunction={closeFunction} />
       </S.Modal>
     </Modal>

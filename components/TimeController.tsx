@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import CheckBox from '@react-native-community/checkbox';
 import theme from '../styles/theme';
-import {BarTop, BarLeft, WIDTH} from '../styles/GlobalStyle';
+import {WIDTH} from '../styles/GlobalStyle';
 import useTime from '../utils/hooks/useTime';
 
 export default function TimeController() {
@@ -27,7 +27,7 @@ export default function TimeController() {
             false: theme.color.lightTextBlack,
           }}
           value={isHoliday}
-          onValueChange={value => handleisHoliday()}
+          onValueChange={_ => handleisHoliday()}
         />
       </CheckBoxPressable>
     </TimeHeader>

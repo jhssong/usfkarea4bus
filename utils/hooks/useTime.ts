@@ -35,6 +35,11 @@ export default function useTime() {
 
   const handleisHoliday = () => setIsHoliday(prev => !prev);
 
+  useEffect(() => {
+    if (new Date().getDay() === 0 || new Date().getDay() === 6)
+      setIsHoliday(true);
+  }, []);
+
   /**
    * ref:
    * https://medium.com/how-to-react/simple-way-to-create-a-stopwatch-in-react-js-bcc0e08e041e
@@ -46,11 +51,6 @@ export default function useTime() {
     }
     return () => clearInterval(interval);
   }, [timePicked, time]);
-
-  useEffect(() => {
-    if (new Date().getDay() === 0 || new Date().getDay() === 6)
-      setIsHoliday(true);
-  }, []);
 
   return {
     timeHM,

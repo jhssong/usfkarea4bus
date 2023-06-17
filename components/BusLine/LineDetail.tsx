@@ -1,17 +1,21 @@
 import React, {useRef} from 'react';
 import {ScrollView} from 'react-native';
-import {useRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
-import Modal from '../Modal';
-import LineItemInfo from './LineDetailInfo';
 import * as S from '../../styles/BusLineStyle';
-import useBusStopData from '../../utils/hooks/useBusStopData';
+import * as C from '../../utils/constants';
+import * as T from '../../utils/types';
+import Modal from '../Modal';
+import LineDetailItem from './LineDetailItem';
+import useBusLineDetail from '../../utils/hooks/useBusLineDetail';
 
 // TODO [med] fix unneccessary rendering is happen at here (use console.log)
-export default function LineDetail({lineData, isVisible, closeFunction}) {
-  const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
+export default function LineDetail(props: T.LineDetailProps) {
+  const {lineData, isVisible, closeFunction} = props;
+  const setSelectedStop = useSetRecoilState(selectedStopState);
   let scrollViewRef = useRef<ScrollView>(null);
-  const {lineDetail} = useBusStopData('line', lineData);
+  const {lineDetail} = useBusLineDetail(lineData);
+  const header = `${C.BusList[lineData.camp]}`;
 
   function scrollToPoint() {
     if (scrollViewRef.current !== null)
@@ -27,18 +31,18 @@ export default function LineDetail({lineData, isVisible, closeFunction}) {
     <Modal isVisible={isVisible} closeFunction={closeFunction}>
       <S.Modal>
         <S.Header>
-          <S.HeaderText>{lineData.busName}</S.HeaderText>
+          <S.HeaderText>{header}</S.HeaderText>
         </S.Header>
         <S.DetailList ref={scrollViewRef} onContentSizeChange={scrollToPoint}>
           {lineDetail.stopList.map((stopID, index) => {
+            console.log(lineDetail);
             return (
-              <LineItemInfo
-                isStart={index === 0}
-                isEnd={index === Object.keys(lineDetail.stopList).length - 1}
-                isPoint={lineData.stopIndex === index}
-                isAfter={lineData.stopIndex <= index}
+              <LineDetailItem
+                index={index}
                 stopID={stopID}
-                busTime={lineDetail.scheduleList[index]}
+                busName={lineData.camp}
+                currentStopIndex={lineData.stopIndex}
+                lineDetail={lineDetail}
                 handlePressable={() => selectStopinDetail(stopID)}
                 key={index}
               />

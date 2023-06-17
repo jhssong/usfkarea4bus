@@ -2,18 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
-import BarImg from '../BarImg';
-import SearchModal from './SearchModal';
 import * as S from '../../styles/SearchBarStyle';
 import * as C from '../../utils/constants';
+import * as T from '../../utils/types';
+import BarImg from '../BarImg';
+import SearchModal from './SearchModal';
 import getNearestStop from '../../utils/getNearestStop';
 
 export default function SearchBar() {
-  const [barText, setBarText] = useState<string>();
-  const [searchModalVisible, setSearchModalVisible] = useState<boolean>();
+  const [barText, setBarText] = useState<string>('');
+  const [searchModalVisible, setSearchModalVisible] = useState<boolean>(false);
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
 
-  // TODO [low] add menu modal (gate info, etc)
+  // TODO add menu modal (gate info, etc)
   function handleMenuBtn() {
     Alert.alert('Not Yet', '', [{text: 'OK'}]);
   }
@@ -28,7 +29,7 @@ export default function SearchBar() {
   function handleBarText() {
     if (selectedStop === null) setBarText(C.InitBarText);
     else {
-      const stop = C.StopList[selectedStop];
+      const stop: T.StopListInfo = C.StopList[selectedStop];
       setBarText(`${stop.camp} #${stop.num} - ${stop.name}`);
     }
   }
@@ -55,7 +56,6 @@ export default function SearchBar() {
         handlePress={handleLocImg}
       />
 
-      {/* SearchModal Component */}
       <SearchModal
         isVisible={searchModalVisible}
         closeFunction={handleSearchModal}

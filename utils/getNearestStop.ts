@@ -3,10 +3,10 @@ import getCurrentLatLng from './getCurrentLatLng';
 
 // TODO [low] add requestAuthorization function at config page
 export default async function getNearestStop() {
-  let nearestStop,
-    minDistance,
-    latitude: number = 0,
-    longitude: number = 0;
+  let nearestStop: string | null = null,
+    minDistance: number | null = null,
+    latitude = 0,
+    longitude = 0;
 
   const data = await getCurrentLatLng();
   if (data !== null) {
@@ -22,8 +22,10 @@ export default async function getNearestStop() {
     const distance =
       Math.pow(Math.abs(latitude - x), 2) +
       Math.pow(Math.abs(longitude - y), 2);
-    if (typeof minDistance === 'undefined') minDistance = distance;
-    else if (distance < minDistance) {
+
+    if (minDistance === null) minDistance = distance;
+
+    if (distance < minDistance) {
       minDistance = distance;
       nearestStop = stopNum;
     }

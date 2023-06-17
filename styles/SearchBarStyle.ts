@@ -5,6 +5,7 @@ import {
   DefaultBorderRadius,
   DefaultText,
 } from './GlobalStyle';
+import theme from './theme';
 
 const BarTop = 24;
 const BarLeft = 16;
@@ -50,7 +51,9 @@ export const ModalBar = styled.View`
   border: 1px solid ${({theme}) => theme.color.border};
 `;
 
-export const BarTextInput = styled.TextInput`
+export const BarTextInput = styled.TextInput.attrs(props => ({
+  placeholderTextColor: theme.color.lightTextBlack,
+}))`
   ${BarTextStyle};
   font-weight: ${DefaultFontBold};
 `;

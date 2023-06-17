@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import WebView from 'react-native-webview';
-import {CheckWebViewErrorScript} from '../../utils/constants';
 import useWebView from '../../utils/hooks/useWebView';
+import {CheckWebViewErrorScript} from '../../utils/constants';
 
 export default function MapWebView(): JSX.Element {
   let webviewRef = useRef<WebView>(null);

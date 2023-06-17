@@ -55,6 +55,7 @@ export const BusHeadingText = styled.Text`
 export const TimeInfoView = styled.View`
   width: 120px;
   height: 48px;
+  justify-content: center;
   align-items: flex-end;
 `;
 

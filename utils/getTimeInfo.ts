@@ -2,6 +2,8 @@ export default function getTimeInfo(time: string, busTime: string): string {
   let comingTime = '',
     leftTime = '';
 
+  if (busTime.length === 0) return ''; // for TMP
+
   if (busTime === 'No Bus') {
     comingTime = 'No Bus';
     return `${comingTime} ${leftTime}`;
@@ -25,7 +27,7 @@ export default function getTimeInfo(time: string, busTime: string): string {
     leftMin = 60 - (timeM - busTimeM);
   } else if (busTimeH == timeH) {
     leftMin = busTimeM - timeM;
-  }
+  } else return 'No Bus';
 
   if (leftMin === 60) leftTime = `(${leftHour + 1}h)`;
   if (leftMin === 0) leftTime = `(now)`;

@@ -5,20 +5,13 @@ import useTime from './useTime';
 import * as T from '../types';
 import {getMetaData} from '../getMetaData';
 
-export default function useBusStopData(
-  type: string,
-  data: T.BusStopVisible | T.LineData,
-) {
+export default function useBusStopData() {
   const selectedStop = useRecoilValue(selectedStopState);
   const [stopData, setStopData] = useState<T.StopData>(T.emptyStopData);
-  const [lineDetail, setLineDetail] = useState<T.LineDetail>(T.emptyLineDetail);
   const {timeHM, isHoliday} = useTime();
 
   function getStopData(camp: string) {
-    const [busName, stopArr, scheduleArr]: T.MetaData = getMetaData(
-      camp,
-      isHoliday,
-    );
+    const [stopArr, scheduleArr]: T.MetaData = getMetaData(camp, isHoliday);
 
     let stopIndexArr: number[] = [];
 
@@ -28,7 +21,7 @@ export default function useBusStopData(
     for (let stopIndex of stopIndexArr)
       for (let [index, value] of scheduleArr.entries()) {
         let newLineData: T.LineData = {
-          busName: busName,
+          camp: camp,
           stopID: selectedStop,
           nextStopID: stopArr[stopIndex + 1],
           stopIndex: stopIndex,
@@ -71,17 +64,14 @@ export default function useBusStopData(
   }
 
   function getCHDStopData(camp: string) {
-    const [busName, stopArr, scheduleArr]: T.MetaData = getMetaData(
-      camp,
-      isHoliday,
-    );
+    const [stopArr, scheduleArr]: T.MetaData = getMetaData(camp, isHoliday);
 
     const stopIndex = selectedStop === stopArr[0] ? 0 : 1;
     const schedule = scheduleArr[stopIndex];
 
     for (let [index, value] of schedule.entries()) {
       let newLineData: T.LineData = {
-        busName: busName,
+        camp: camp,
         stopID: selectedStop,
         nextStopID: stopArr[stopIndex === 0 ? 1 : 0],
         stopIndex: stopIndex,
@@ -116,38 +106,18 @@ export default function useBusStopData(
     }
   }
 
-  function getLineDetail(camp: string, lineData: T.LineData) {
-    const [x, stopList, scheduleArr]: T.MetaData = getMetaData(camp, isHoliday);
-    const scheduleList = scheduleArr[lineData.scheduleIndex];
-    setLineDetail({stopList, scheduleList});
-  }
-
-  // get stop data
   useEffect(() => {
     setStopData([]);
     if (selectedStop === null) return;
-
     // for CH, CW, CG, CC POST RUN
     getStopData(selectedStop[0] + selectedStop[1]);
-
     // for CH DFAC RUN
-    if (selectedStop === 'CH1' || selectedStop === 'CW11')
-      getCHDStopData('CHD');
-
+    // if (selectedStop === 'CH1' || selectedStop === 'CW11')
+    //   getCHDStopData('CHD');
     // for NAK
     if (false) {
     }
   }, [selectedStop, timeHM, isHoliday]);
 
-  // get line detail datas
-  useEffect(() => {
-    if (type === 'line' && typeof data !== 'boolean' && data.stopID !== null) {
-      let camp = '';
-      if (data.busName === 'DFAC RUN') camp = 'CHD';
-      else camp = data.stopID[0] + data.stopID[1];
-      getLineDetail(camp, data);
-    }
-  }, [type, data]);
-
-  return {stopData, lineDetail};
+  return stopData;
 }
