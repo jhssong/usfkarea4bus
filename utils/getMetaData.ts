@@ -1,9 +1,9 @@
 import * as C from './constants';
-import * as T from './types';
+import {MetaData} from './types';
 
-const emptyReturn: T.MetaData = [[''], ['']['']];
+const emptyReturn: MetaData = [[''], ['']['']];
 
-export function getMetaData(camp: string, isHoliday: boolean): T.MetaData {
+export function getMetaData(camp: string, isHoliday: boolean): MetaData {
   if ((camp === 'CH' || camp === 'CG' || camp == 'CW') && !isHoliday)
     return [C.CH_WeekStop, C.CH_WeekSchedule];
   else if ((camp === 'CH' || camp === 'CG' || camp == 'CW') && isHoliday)

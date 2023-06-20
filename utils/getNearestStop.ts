@@ -1,7 +1,7 @@
 import {StopLatLng} from '../utils/constants';
 import getCurrentLatLng from './getCurrentLatLng';
 
-// TODO [low] add requestAuthorization function at config page
+// TODO add requestAuthorization function at config page
 export default async function getNearestStop() {
   let nearestStop: string | null = null,
     minDistance: number | null = null,
@@ -13,7 +13,7 @@ export default async function getNearestStop() {
     latitude = data.latitude;
     longitude = data.longitude;
   } else {
-    // TODO [med] alert or toast that permission is denied
+    // TODO alert or toast that permission is denied
     return 'CH1';
   }
 

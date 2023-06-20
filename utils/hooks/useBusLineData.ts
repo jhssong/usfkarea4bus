@@ -1,0 +1,71 @@
+import {useEffect, useState} from 'react';
+import useTime from './useTime';
+import * as T from '../types';
+import {getMetaData} from '../getMetaData';
+
+export default function useBusLineDetail(data: T.LineData) {
+  const [stopList, setStopList] = useState<string[]>([]);
+  const [scheduleList, setScheduleList] = useState<string[]>([]);
+  const {timeHM, isHoliday} = useTime();
+
+  function getLineDetail(camp: string, lineData: T.LineData) {
+    const [stopList, scheduleArr]: T.MetaData = getMetaData(camp, isHoliday);
+
+    const scheduleList =
+      camp === 'CHD'
+        ? getCHDScheduleList(lineData.stopIndex, scheduleArr, stopList.length)
+        : getScheduleList(lineData.stopIndex, scheduleArr);
+
+    setStopList(stopList);
+    setScheduleList(scheduleList);
+  }
+
+  function getScheduleList(stopIndex: number, scheduleArr: T.scheduleArr) {
+    let scheduleIndex = -1;
+
+    while (true) {
+      if (++scheduleIndex === scheduleArr.length)
+        return Array.from({length: scheduleArr[0].length}, () => 'x');
+
+      const value = scheduleArr[scheduleIndex][1];
+      if (value !== 'x' && value > timeHM) {
+        return stopIndex === 1
+          ? scheduleArr[scheduleIndex]
+          : scheduleArr[scheduleIndex - 1];
+      }
+    }
+  }
+
+  function getCHDScheduleList(
+    stopIndex: number,
+    scheduleArr: T.scheduleArr,
+    arrLength: number,
+  ) {
+    let scheduleIndex = -1;
+
+    while (true) {
+      if (++scheduleIndex === scheduleArr[1].length)
+        return Array.from({length: arrLength}, () => 'x');
+
+      const value = scheduleArr[stopIndex][scheduleIndex];
+
+      if (value > timeHM) {
+        let list = Array.from({length: arrLength}, () => 'x');
+        list[stopIndex] = value;
+        return list;
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (data === null) return;
+    let camp = '';
+
+    if (data.busID === 'CHD') camp = 'CHD';
+    else camp = data.stopID[0] + data.stopID[1];
+
+    getLineDetail(camp, data);
+  }, [data]);
+
+  return [stopList, scheduleList];
+}

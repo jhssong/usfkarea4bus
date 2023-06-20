@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import {useSetRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
@@ -7,19 +7,18 @@ import * as C from '../../utils/constants';
 import * as T from '../../utils/types';
 import Modal from '../Modal';
 import LineDetailItem from './LineDetailItem';
-import useBusLineDetail from '../../utils/hooks/useBusLineDetail';
+import useBusLineData from '../../utils/hooks/useBusLineData';
 
-// TODO [med] fix unneccessary rendering is happen at here (use console.log)
 export default function LineDetail(props: T.LineDetailProps) {
   const {lineData, isVisible, closeFunction} = props;
-  const setSelectedStop = useSetRecoilState(selectedStopState);
   let scrollViewRef = useRef<ScrollView>(null);
-  const {lineDetail} = useBusLineDetail(lineData);
-  const header = `${C.BusList[lineData.camp]}`;
+  const setSelectedStop = useSetRecoilState(selectedStopState);
+  const [stopList, scheduleList] = useBusLineData(lineData);
+
+  const header = `${C.BusList[lineData.busID]}`;
 
   function scrollToPoint() {
-    if (scrollViewRef.current !== null)
-      scrollViewRef.current.scrollTo({y: (lineData.stopIndex - 1) * 70 - 35});
+    scrollViewRef.current?.scrollTo({y: (lineData.stopIndex - 1) * 70 - 35});
   }
 
   function selectStopinDetail(id: string) {
@@ -34,15 +33,15 @@ export default function LineDetail(props: T.LineDetailProps) {
           <S.HeaderText>{header}</S.HeaderText>
         </S.Header>
         <S.DetailList ref={scrollViewRef} onContentSizeChange={scrollToPoint}>
-          {lineDetail.stopList.map((stopID, index) => {
-            console.log(lineDetail);
+          {stopList.map((stopID, index) => {
             return (
               <LineDetailItem
                 index={index}
+                busID={lineData.busID}
                 stopID={stopID}
-                busName={lineData.camp}
                 currentStopIndex={lineData.stopIndex}
-                lineDetail={lineDetail}
+                stopList={stopList}
+                scheduleList={scheduleList}
                 handlePressable={() => selectStopinDetail(stopID)}
                 key={index}
               />

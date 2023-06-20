@@ -14,19 +14,14 @@ export default function StopInfo() {
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
   const [busStopVisible, setBusStopVisible] = useState<boolean>(false);
   const [busLineVisible, setBusLineVisible] = useState<boolean>(false);
-  const [headerText, setHeaderText] = useState<string>('');
   const stopData = useBusStopData();
+  const [headerText, setHeaderText] = useState<string>('');
   const [itemIndex, setItemIndex] = useState<number>(-1);
   const lineDetailVisible = itemIndex !== -1;
 
   function closeBusStopModal() {
     setBusStopVisible(false);
     setSelectedStop(null);
-  }
-
-  function openBusLineModal(index: number) {
-    setItemIndex(index);
-    setBusLineVisible(true);
   }
 
   const closeBusLineModal = () => {
@@ -57,10 +52,13 @@ export default function StopInfo() {
 
         <S.StopLineList>
           {stopData.map((LineData, index) => {
+            function openBusLineModal() {
+              setItemIndex(index);
+              setBusLineVisible(true);
+            }
             return (
               <StopLineItem
                 lineData={LineData}
-                itemIndex={index}
                 openBusLineModal={openBusLineModal}
                 key={index}
               />
@@ -68,13 +66,13 @@ export default function StopInfo() {
           })}
         </S.StopLineList>
 
-        {/* {lineDetailVisible && (
+        {lineDetailVisible && (
           <LineDetail
             lineData={stopData[itemIndex]}
             isVisible={busLineVisible}
             closeFunction={closeBusLineModal}
           />
-        )} */}
+        )}
       </S.Modal>
     </Modal>
   );

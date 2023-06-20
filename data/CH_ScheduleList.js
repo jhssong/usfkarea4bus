@@ -865,11 +865,14 @@ const CH_WkndSchedule = [
 ];
 
 const CHD_WeekSchedule = [
+  [],
   ['1640', '1700', '1720', '1740', '1800', '1820'],
   ['1700', '1720', '1740', '1800', '1820', '1840'],
+  [],
 ];
 
 const CHD_WkndSchedule = [
+  [],
   [
     '0850',
     '0910',
@@ -912,6 +915,7 @@ const CHD_WkndSchedule = [
     '1820',
     '1840',
   ],
+  [],
 ];
 
 export {CH_WeekSchedule, CH_WkndSchedule, CHD_WeekSchedule, CHD_WkndSchedule};

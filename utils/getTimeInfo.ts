@@ -1,18 +1,12 @@
-export default function getTimeInfo(time: string, busTime: string): string {
-  let comingTime = '',
-    leftTime = '';
-
+export default function getTimeInfo(timeHM: string, busTime: string): string {
   if (busTime.length === 0) return ''; // for TMP
 
-  if (busTime === 'No Bus') {
-    comingTime = 'No Bus';
-    return `${comingTime} ${leftTime}`;
-  }
+  if (busTime === 'x') return 'No Bus';
 
-  comingTime = busTime.slice(0, 2) + ':' + busTime.slice(2, 4);
+  const comingTime = `${busTime.slice(0, 2)}:${busTime.slice(2, 4)}`;
 
-  const timeH = Number(time.slice(0, 2));
-  const timeM = Number(time.slice(2, 4));
+  const timeH = Number(timeHM.slice(0, 2));
+  const timeM = Number(timeHM.slice(2, 4));
   const busTimeH = Number(busTime.slice(0, 2));
   const busTimeM = Number(busTime.slice(2, 4));
 
@@ -28,6 +22,8 @@ export default function getTimeInfo(time: string, busTime: string): string {
   } else if (busTimeH == timeH) {
     leftMin = busTimeM - timeM;
   } else return 'No Bus';
+
+  let leftTime = '';
 
   if (leftMin === 60) leftTime = `(${leftHour + 1}h)`;
   if (leftMin === 0) leftTime = `(now)`;

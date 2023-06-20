@@ -1,23 +1,23 @@
-export type MetaData = [string[], string[][]];
+export type MetaData = [stopArr, scheduleArr];
+export type stopArr = string[];
+export type scheduleArr = string[][];
 
 export type StopData = LineData[];
 export const emptyStopData: StopData = [];
 
 export type LineData = {
-  camp: string;
-  stopID: string | null;
+  busID: string;
+  stopID: string;
   nextStopID: string;
   stopIndex: number;
-  scheduleIndex: number;
   nowTime: string;
   nextTime: string;
 };
 
-export type LineDetail = {
-  camp: string;
-  stopList: string[];
-  scheduleList: string[] | string;
-};
+// export type LineDetail = {
+//   stopList: string[];
+//   scheduleList: string[] | string;
+// };
 
 export type StopListInfo = {
   camp: string;
@@ -37,8 +37,7 @@ export type SearchResultProps = {
 
 export type StopLineItemProps = {
   lineData: LineData;
-  itemIndex: number;
-  openBusLineModal: (index: number) => void;
+  openBusLineModal: () => void;
 };
 
 export type LineDetailProps = {
@@ -49,9 +48,10 @@ export type LineDetailProps = {
 
 export type LineItemProps = {
   index: number;
+  busID: string;
   stopID: string;
-  busName: string;
   currentStopIndex: number;
-  lineDetail: LineDetail;
+  stopList: string[];
+  scheduleList: string[];
   handlePressable: () => void;
 };

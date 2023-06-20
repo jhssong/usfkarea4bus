@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import {useRecoilState} from 'recoil';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {isHolidayState, timePickedState, timeState} from '../../stores/atom';
-import getNowTime from '../getNowTime';
 
 export default function useTime() {
   const [isHoliday, setIsHoliday] = useRecoilState<boolean>(isHolidayState);
@@ -20,7 +19,8 @@ export default function useTime() {
 
   function handleTimePicker() {
     if (timePicked) {
-      setTime(getNowTime());
+      const currentTime = getCurrentTimeData();
+      setTime(currentTime);
       setTimePicked(false);
     } else
       DateTimePickerAndroid.open({
@@ -34,6 +34,15 @@ export default function useTime() {
   }
 
   const handleisHoliday = () => setIsHoliday(prev => !prev);
+
+  function getCurrentTimeData() {
+    const now = new Date();
+    const UTC = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
+    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+    const nowTime = new Date(UTC + KR_TIME_DIFF);
+
+    return nowTime;
+  }
 
   useEffect(() => {
     if (new Date().getDay() === 0 || new Date().getDay() === 6)
