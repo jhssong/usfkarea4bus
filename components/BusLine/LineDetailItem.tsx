@@ -26,7 +26,7 @@ export default function LineDetailItem(props: T.LineItemProps) {
 
   const isPoint = currentStopIndex === index;
   const isAfter = busID === 'CHD' ? isPoint : currentStopIndex <= index;
-  const isNoBus = time === 'x';
+  const isNoBus = busTime === 'x';
 
   // TODO add current bus location
   return (

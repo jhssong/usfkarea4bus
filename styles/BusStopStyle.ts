@@ -20,7 +20,7 @@ export const Modal = styled.Pressable`
 export {Header, HeaderText};
 
 export const HandleBar = styled.View`
-  width: 24%;
+  width: 12%;
   height: 4px;
   margin-bottom: 16px;
   background-color: ${({theme}) => theme.color.border};

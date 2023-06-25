@@ -22,6 +22,7 @@ export default function LineDetail(props: T.LineDetailProps) {
   }
 
   function selectStopinDetail(id: string) {
+    if (id === 'CHTMP') return;
     setSelectedStop(id);
     closeFunction();
   }
