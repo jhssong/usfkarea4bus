@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactNativeModal from 'react-native-modal';
+import * as S from '../../styles/BusStopStyle';
+import * as C from '../../utils/constants';
+import * as T from '../../utils/types';
 
 export default function Modal({children, isVisible, closeFunction}) {
   return (

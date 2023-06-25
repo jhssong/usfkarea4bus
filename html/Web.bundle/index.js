@@ -11,12 +11,15 @@ const sendDataToReactNative = async data => {
 function receiveDataFromReactNative(event) {
   const receivedData = JSON.parse(event.data);
   const {type, data} = receivedData;
+
   if (type === 'map') {
     ({CampLatLng, StopLatLng} = data);
     createMap();
     createMarker();
   } else if (StopLatLng && type === 'stop' && data !== null) {
-    panToLatLng(StopLatLng[data]);
+    panToLatLng(data, StopLatLng[data]);
+  } else if (CampLatLng && type === 'camp' && data !== null) {
+    panToLatLng(data, CampLatLng[data]);
   }
 }
 
@@ -25,7 +28,7 @@ sendDataToReactNative('WebView Activated');
 function createMap() {
   const mapOptions = {
     center: CampLatLng['CH'],
-    zoom: zoomByCamp('CH'),
+    zoom: zoomValue('CH'),
     zoomControl: false,
   };
 
@@ -59,11 +62,13 @@ function createMarker() {
   }
 }
 
-const zoomByCamp = camp => {
+const zoomValue = camp => {
   if (camp === 'CW' || camp === 'CC') return 15;
   else if (camp === 'CH' || camp === 'CG') return 17;
+  else return 17;
 };
 
 const markerClickEvent = e => sendDataToReactNative(e.target.options.title);
 
-const panToLatLng = ([lat, lng]) => map.setView(L.latLng(lat, lng), 17);
+const panToLatLng = (id, [lat, lng]) =>
+  map.setView(L.latLng(lat, lng), zoomValue(id));

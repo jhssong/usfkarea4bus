@@ -14,11 +14,6 @@ export type LineData = {
   nextTime: string;
 };
 
-// export type LineDetail = {
-//   stopList: string[];
-//   scheduleList: string[] | string;
-// };
-
 export type StopListInfo = {
   camp: string;
   num: string;

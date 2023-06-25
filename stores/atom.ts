@@ -5,6 +5,11 @@ export const selectedStopState = atom<string | null>({
   default: null,
 });
 
+export const selectedCampState = atom<string | null>({
+  key: 'selectedCampState',
+  default: null,
+});
+
 export const timeState = atom<Date>({
   key: 'timeState',
   default: new Date(),

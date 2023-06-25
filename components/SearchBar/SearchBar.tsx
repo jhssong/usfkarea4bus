@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Alert} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {selectedStopState} from '../../stores/atom';
 import * as S from '../../styles/SearchBarStyle';
@@ -8,16 +7,15 @@ import * as T from '../../utils/types';
 import BarImg from '../BarImg';
 import SearchModal from './SearchModal';
 import getNearestStop from '../../utils/getNearestStop';
+import Menu from '../Menu/Menu';
 
 export default function SearchBar() {
   const [barText, setBarText] = useState<string>('');
+  const [menuModalVisible, setMenuModalVisible] = useState<boolean>(false);
   const [searchModalVisible, setSearchModalVisible] = useState<boolean>(false);
   const [selectedStop, setSelectedStop] = useRecoilState(selectedStopState);
 
-  // TODO add menu modal (gate info, etc)
-  function handleMenuBtn() {
-    Alert.alert('Not Yet', '', [{text: 'OK'}]);
-  }
+  const handleMenuModal = () => setMenuModalVisible(prev => !prev);
 
   const handleSearchModal = () => setSearchModalVisible(prev => !prev);
 
@@ -42,7 +40,7 @@ export default function SearchBar() {
         alignLeft={true}
         size={50}
         src={C.MenuImgSrc}
-        handlePress={handleMenuBtn}
+        handlePress={handleMenuModal}
       />
 
       <S.SearchBar onPress={handleSearchModal}>
@@ -60,6 +58,8 @@ export default function SearchBar() {
         isVisible={searchModalVisible}
         closeFunction={handleSearchModal}
       />
+
+      <Menu isVisible={menuModalVisible} closeFunction={handleMenuModal} />
     </>
   );
 }
