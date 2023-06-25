@@ -27,11 +27,12 @@ export default function useBusLineDetail(data: T.LineData) {
       if (++scheduleIndex === scheduleArr.length)
         return Array.from({length: scheduleArr[0].length}, () => 'x');
 
-      const value = scheduleArr[scheduleIndex][1];
-      if (value !== 'x' && value > timeHM) {
-        return stopIndex === 1
-          ? scheduleArr[scheduleIndex]
-          : scheduleArr[scheduleIndex - 1];
+      const startValue = scheduleArr[scheduleIndex][1];
+      const currentValue = scheduleArr[scheduleIndex][stopIndex];
+
+      if (startValue !== 'x' && startValue >= timeHM) {
+        if (currentValue >= timeHM) return scheduleArr[scheduleIndex];
+        else return scheduleArr[scheduleIndex - 1];
       }
     }
   }
@@ -49,7 +50,7 @@ export default function useBusLineDetail(data: T.LineData) {
 
       const value = scheduleArr[stopIndex][scheduleIndex];
 
-      if (value > timeHM) {
+      if (value >= timeHM) {
         let list = Array.from({length: arrLength}, () => 'x');
         list[stopIndex] = value;
         return list;

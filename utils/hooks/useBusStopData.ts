@@ -89,12 +89,14 @@ function getBusTime(
     const isValidTime = nowTime !== 'x' && nowTime >= timeHM;
     const isNoBus = index + 1 === scheduleArr.length;
 
-    if (isValidTime)
+    if (isValidTime) {
       for (let nextIndex = index + 1; nextIndex < len; nextIndex++) {
         const nextTime = scheduleArr[nextIndex][stopIndex];
         if (nextTime !== 'x') return [nowTime, nextTime];
         else if (nextIndex === len) return [nowTime, 'x'];
       }
+      return [nowTime, 'x'];
+    }
 
     if (isNoBus) return ['x', 'x'];
   }
