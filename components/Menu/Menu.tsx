@@ -1,53 +1,62 @@
-import React, {Component, useCallback} from 'react';
+import React, {useState} from 'react';
 import {Alert, Linking} from 'react-native';
 import {useSetRecoilState} from 'recoil';
 import {selectedCampState} from '../../stores/atom';
-import ReactNativeModal from 'react-native-modal';
 import * as S from '../../styles/MenuStyle';
 import * as C from '../../utils/constants';
 import * as T from '../../utils/types';
-
-const supportedURL = 'https://google.com';
-
-const unsupportedURL = 'slack://open?team=123456';
+import Modal from '../Modal';
+import CampInfo from './CampInfo';
+import About from './About';
 
 export default function Menu({isVisible, closeFunction}) {
   const setSelectedCamp = useSetRecoilState(selectedCampState);
+  const [infoVisible, setInfoVisible] = useState<boolean>(false);
+  const [aboutVisible, setAboutVisble] = useState<boolean>(false);
 
   function moveToCamp(id: string) {
     setSelectedCamp(id);
     closeFunction();
   }
 
+  const openCampInfoModal = () => setInfoVisible(prev => !prev);
+  const closeCampInfoModal = () => setInfoVisible(prev => !prev);
+
+  const openAboutModal = () => setAboutVisble(prev => !prev);
+  const closeAboutModal = () => setAboutVisble(prev => !prev);
+
   return (
-    <ReactNativeModal
+    <Modal
       isVisible={isVisible}
       animationIn="slideInLeft"
       animationOut="slideOutLeft"
-      backdropOpacity={0.5}
-      onBackButtonPress={closeFunction}
-      onBackdropPress={closeFunction}
-      style={{flex: 1, margin: 0}}>
-      <S.Modal>
-        <S.MenuItem>
-          <S.MenuText>Move to Camp</S.MenuText>
-        </S.MenuItem>
-
+      closeFunction={closeFunction}>
+      <S.MenuModal>
         <CampSelection moveToCamp={moveToCamp} />
+
+        <S.MenuItem onPress={openCampInfoModal}>
+          <S.MenuText>Camp Information</S.MenuText>
+        </S.MenuItem>
+        <CampInfo isVisible={infoVisible} closeFunction={closeCampInfoModal} />
 
         <Feedback />
 
-        <S.MenuItem>
+        <S.MenuItem onPress={openAboutModal}>
           <S.MenuText>About</S.MenuText>
         </S.MenuItem>
-      </S.Modal>
-    </ReactNativeModal>
+        <About isVisible={aboutVisible} closeFunction={closeAboutModal} />
+      </S.MenuModal>
+    </Modal>
   );
 }
 
 const CampSelection = ({moveToCamp}) => {
   return (
     <>
+      <S.MenuItem>
+        <S.MenuText>Move to Camp</S.MenuText>
+      </S.MenuItem>
+
       {Object.keys(C.CampList).map(id => {
         return (
           <S.MenuItem onPress={() => moveToCamp(id)} key={id}>
@@ -68,10 +77,16 @@ const Feedback = () => {
 
   async function sendEmail() {
     const isValid = await Linking.canOpenURL(url);
+    const openURL = async () => await Linking.openURL(url);
 
-    if (isValid) await Linking.openURL(url);
-    // TODO if user didn't set default email app, then how?
-    else await Linking.openURL(url);
+    if (isValid) openURL;
+    else {
+      // TODO if user didn't set default email app, then how?
+      Alert.alert('Error', 'Check your default Email App', [
+        {text: 'Cancel'},
+        {text: 'Open URL', onPress: openURL},
+      ]);
+    }
   }
 
   return (

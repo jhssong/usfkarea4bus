@@ -7,7 +7,7 @@ import {
   DefaultText,
 } from './GlobalStyle';
 
-export const Modal = styled.Pressable`
+export const Modal = styled.View`
   flex: 1;
   background-color: ${({theme}) => theme.color.background};
 `;
