@@ -11,5 +11,9 @@ export function getMetaData(camp: string, isHoliday: boolean): MetaData {
   else if (camp === 'CHD' && !isHoliday)
     return [C.CHD_Stop, C.CHD_WeekSchedule];
   else if (camp === 'CHD' && isHoliday) return [C.CHD_Stop, C.CHD_WkndSchedule];
+  else if (camp === 'CC' && !isHoliday)
+    return [C.CC_WeekStop, C.CC_WeekSchedule];
+  else if (camp === 'CC' && isHoliday)
+    return [C.CC_WkndStop, C.CC_WkndSchedule];
   else return emptyReturn;
 }
