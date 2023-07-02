@@ -17,7 +17,7 @@ export const timeState = atom<Date>({
 
 export const isHolidayState = atom<boolean>({
   key: 'isHolidayState',
-  default: false,
+  default: new Date().getDay() === 0 || new Date().getDay() === 6,
 });
 
 export const timePickedState = atom<boolean>({

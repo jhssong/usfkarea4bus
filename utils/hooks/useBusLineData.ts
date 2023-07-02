@@ -9,6 +9,7 @@ export default function useBusLineDetail(data: T.LineData) {
   const {timeHM, isHoliday} = useTime();
 
   function getLineDetail(camp: string, lineData: T.LineData) {
+    console.log('check2');
     const [stopList, scheduleArr]: T.MetaData = getMetaData(camp, isHoliday);
 
     const scheduleList =
@@ -64,6 +65,8 @@ export default function useBusLineDetail(data: T.LineData) {
 
     if (data.busID === 'CHD') camp = 'CHD';
     else camp = data.stopID[0] + data.stopID[1];
+
+    console.log('check1');
 
     getLineDetail(camp, data);
   }, [data]);

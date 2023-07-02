@@ -33,7 +33,10 @@ export default function useTime() {
       });
   }
 
-  const handleisHoliday = () => setIsHoliday(prev => !prev);
+  const handleisHoliday = () => {
+    console.log(isHoliday);
+    setIsHoliday(prev => !prev);
+  };
 
   function getCurrentTimeData() {
     const now = new Date();
@@ -43,11 +46,6 @@ export default function useTime() {
 
     return nowTime;
   }
-
-  useEffect(() => {
-    if (new Date().getDay() === 0 || new Date().getDay() === 6)
-      setIsHoliday(true);
-  }, []);
 
   /**
    * ref:
