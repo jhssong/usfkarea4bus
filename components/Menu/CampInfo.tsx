@@ -20,10 +20,19 @@ export default function CampInfo(props) {
 
         {Object.keys(C.GateInfo).map(title => {
           return (
-            <GateInfo
+            <TimeInfo title={title} data={C.GateInfo[title]} key={title} />
+          );
+        })}
+
+        <S.TitleView>
+          <S.TitleText>Barber Shop</S.TitleText>
+        </S.TitleView>
+
+        {Object.keys(C.BarberShopInfo).map(title => {
+          return (
+            <TimeInfo
               title={title}
-              MF={C.GateInfo[title].MF}
-              SS={C.GateInfo[title].SS}
+              data={C.BarberShopInfo[title]}
               key={title}
             />
           );
@@ -33,23 +42,23 @@ export default function CampInfo(props) {
   );
 }
 
-export function GateInfo({title, MF, SS}) {
+function TimeInfo({title, data}) {
   return (
-    <S.GateView>
-      <S.GateHeaderView>
-        <S.GateHeaderText>{title}</S.GateHeaderText>
-      </S.GateHeaderView>
+    <S.TimeInfoView>
+      <S.TimeHeaderView>
+        <S.TimeHeaderText>{title}</S.TimeHeaderText>
+      </S.TimeHeaderView>
 
-      <S.GateItemView>
-        <S.GateTimeView>
-          <S.GateItemText>Mon-Fri</S.GateItemText>
-          <S.GateItemText style={{textAlign: 'center'}}>{MF}</S.GateItemText>
-        </S.GateTimeView>
-        <S.GateTimeView>
-          <S.GateItemText>Sun-Sat</S.GateItemText>
-          <S.GateItemText style={{textAlign: 'center'}}>{SS}</S.GateItemText>
-        </S.GateTimeView>
-      </S.GateItemView>
-    </S.GateView>
+      <S.TimeView>
+        {Object.keys(data).map(timeRange => {
+          return (
+            <S.TimeItemView key={timeRange}>
+              <S.TimeItemRangeText>{timeRange}</S.TimeItemRangeText>
+              <S.TimeItemText>{data[timeRange]}</S.TimeItemText>
+            </S.TimeItemView>
+          );
+        })}
+      </S.TimeView>
+    </S.TimeInfoView>
   );
 }

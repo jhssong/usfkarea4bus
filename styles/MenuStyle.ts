@@ -31,7 +31,7 @@ export const MenuSubText = styled.Text`
 
 export {Header, HeaderText};
 
-export const Modal = styled.Pressable`
+export const Modal = styled.ScrollView`
   flex: 1;
   background-color: ${({theme}) => theme.color.background};
 `;
@@ -47,33 +47,39 @@ export const TitleText = styled.Text`
   line-height: ${({theme}) => theme.lineHegiht.lg};
 `;
 
-export const GateView = styled.View`
+export const TimeInfoView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
 `;
 
-export const GateHeaderView = styled.View`
+export const TimeHeaderView = styled.View`
   width: 50%;
 `;
 
-export const GateHeaderText = styled.Text`
+export const TimeHeaderText = styled.Text`
   ${DefaultText}
   font-weight: ${DefaultFontBold}
 `;
 
-export const GateItemView = styled.View`
+export const TimeView = styled.View`
   width: 50%;
   flex-direction: column;
 `;
 
-export const GateTimeView = styled.View`
+export const TimeItemView = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const GateItemText = styled.Text`
+export const TimeItemRangeText = styled.Text`
+  width: 50%;
+  text-align: center;
+  ${DefaultText}
+`;
+
+export const TimeItemText = styled.Text`
   width: 50%;
   ${DefaultText}
 `;
