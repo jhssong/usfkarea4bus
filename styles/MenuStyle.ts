@@ -36,25 +36,44 @@ export const Modal = styled.Pressable`
   background-color: ${({theme}) => theme.color.background};
 `;
 
-export const ItemView = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 16px;
+export const TitleView = styled.View`
+  width: 100%;
+  padding: 8px 16px;
 `;
 
-export const ItemTextHeader = styled.Text`
-  color: ${({theme}) => theme.color.textBlack};
+export const TitleText = styled.Text`
+  color: ${({theme}) => theme.color.lightTextBlack};
   font-size: ${({theme}) => theme.fontSize.lg};
   line-height: ${({theme}) => theme.lineHegiht.lg};
-  font-weight: ${DefaultFontBold};
-  padding-left: 16px;
 `;
 
-export const ItemTextBold = styled.Text`
+export const GateView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+`;
+
+export const GateHeaderView = styled.View`
+  width: 50%;
+`;
+
+export const GateHeaderText = styled.Text`
   ${DefaultText}
   font-weight: ${DefaultFontBold}
 `;
 
-export const ItemText = styled.Text`
+export const GateItemView = styled.View`
+  width: 50%;
+  flex-direction: column;
+`;
+
+export const GateTimeView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const GateItemText = styled.Text`
+  width: 50%;
   ${DefaultText}
 `;

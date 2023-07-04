@@ -63,7 +63,7 @@ export const ResultScrollView = styled.ScrollView`
 `;
 
 export const ResultPressable = styled.Pressable`
-  height: ${BarHeight}px;
+  padding: 8px 0;
   flex-direction: row;
   align-items: center;
   border-bottom-width: 0.4px;

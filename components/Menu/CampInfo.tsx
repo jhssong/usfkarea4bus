@@ -13,12 +13,43 @@ export default function CampInfo(props) {
         <S.Header>
           <S.HeaderText>Camp Information</S.HeaderText>
         </S.Header>
-        <S.ItemTextHeader>Gate Info</S.ItemTextHeader>
-        <S.ItemView>
-          <S.ItemTextBold>Walker/Gate4</S.ItemTextBold>
-          <S.ItemText>1900-1900</S.ItemText>
-        </S.ItemView>
+
+        <S.TitleView>
+          <S.TitleText>Gate Info</S.TitleText>
+        </S.TitleView>
+
+        {Object.keys(C.GateInfo).map(title => {
+          return (
+            <GateInfo
+              title={title}
+              MF={C.GateInfo[title].MF}
+              SS={C.GateInfo[title].SS}
+              key={title}
+            />
+          );
+        })}
       </S.Modal>
     </Modal>
+  );
+}
+
+export function GateInfo({title, MF, SS}) {
+  return (
+    <S.GateView>
+      <S.GateHeaderView>
+        <S.GateHeaderText>{title}</S.GateHeaderText>
+      </S.GateHeaderView>
+
+      <S.GateItemView>
+        <S.GateTimeView>
+          <S.GateItemText>Mon-Fri</S.GateItemText>
+          <S.GateItemText style={{textAlign: 'center'}}>{MF}</S.GateItemText>
+        </S.GateTimeView>
+        <S.GateTimeView>
+          <S.GateItemText>Sun-Sat</S.GateItemText>
+          <S.GateItemText style={{textAlign: 'center'}}>{SS}</S.GateItemText>
+        </S.GateTimeView>
+      </S.GateItemView>
+    </S.GateView>
   );
 }

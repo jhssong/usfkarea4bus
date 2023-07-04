@@ -33,10 +33,7 @@ export default function useTime() {
       });
   }
 
-  const handleisHoliday = () => {
-    console.log(isHoliday);
-    setIsHoliday(prev => !prev);
-  };
+  const handleisHoliday = () => setIsHoliday(prev => !prev);
 
   function getCurrentTimeData() {
     const now = new Date();

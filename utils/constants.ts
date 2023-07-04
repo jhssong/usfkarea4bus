@@ -3,8 +3,9 @@ import BusList from '../data/BusList';
 import StopList from '../data/StopList';
 import CampLatLng from '../data/CampLatLng';
 import StopLatLng from '../data/StopLatLng';
+import GateInfo from '../data/GateInfo';
 
-export {CampList, BusList, StopList, CampLatLng, StopLatLng};
+export {CampList, BusList, StopList, CampLatLng, StopLatLng, GateInfo};
 
 import {CH_WeekStop, CH_WkndStop, CHD_Stop} from '../data/CH_StopList';
 import {CH_WeekSchedule, CH_WkndSchedule} from '../data/CH_ScheduleList';

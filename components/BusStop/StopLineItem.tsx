@@ -25,7 +25,7 @@ export default function StopLineItem(props: T.StopLineItemProps) {
 
       <S.TimeInfoView>
         <S.TimeText noBus={isNoBus}>{now}</S.TimeText>
-        {!isNoBus && <S.TimeText>{next}</S.TimeText>}
+        {!isNoBus && <S.TimeText noBus={next === 'No Bus'}>{next}</S.TimeText>}
       </S.TimeInfoView>
     </S.ItemPressable>
   );

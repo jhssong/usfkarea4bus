@@ -4,7 +4,6 @@ import {MetaData} from './types';
 const emptyReturn: MetaData = [[''], ['']['']];
 
 export function getMetaData(camp: string, isHoliday: boolean): MetaData {
-  console.log('metadata: isholiday ', isHoliday);
   if ((camp === 'CH' || camp === 'CG' || camp == 'CW') && !isHoliday)
     return [C.CH_WeekStop, C.CH_WeekSchedule];
   else if ((camp === 'CH' || camp === 'CG' || camp == 'CW') && isHoliday)
