@@ -22,16 +22,24 @@ export default function useBusLineDetail(data: T.LineData) {
 
   function getScheduleList(stopIndex: number, scheduleArr: T.scheduleArr) {
     let scheduleIndex = -1;
+    let currentValue = '0000';
 
     while (true) {
       if (++scheduleIndex === scheduleArr.length)
         return Array.from({length: scheduleArr[0].length}, () => 'x');
 
       const startValue = scheduleArr[scheduleIndex][1];
-      const currentValue = scheduleArr[scheduleIndex][stopIndex];
+      const tempCurrentValue = scheduleArr[scheduleIndex][stopIndex];
+
+      if (
+        currentValue === '0000' &&
+        tempCurrentValue !== 'x' &&
+        tempCurrentValue >= timeHM
+      )
+        currentValue = tempCurrentValue;
 
       if (startValue !== 'x' && startValue >= timeHM) {
-        if (currentValue >= timeHM) return scheduleArr[scheduleIndex];
+        if (currentValue >= startValue) return scheduleArr[scheduleIndex];
         else return scheduleArr[scheduleIndex - 1];
       }
     }

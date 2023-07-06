@@ -4,7 +4,7 @@ import {selectedStopState} from '../../stores/atom';
 import * as S from '../../styles/SearchBarStyle';
 import * as C from '../../utils/constants';
 import * as T from '../../utils/types';
-import BarImg from '../BarImg';
+import BarImg from './BarImg';
 import SearchModal from './SearchModal';
 import getNearestStop from '../../utils/getNearestStop';
 import Menu from '../Menu/Menu';

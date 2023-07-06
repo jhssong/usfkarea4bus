@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {BarTop, BarLeft, BarHeight, BarWidth} from '../styles/GlobalStyle';
+import {BarTop, BarLeft, BarHeight, BarWidth} from '../../styles/GlobalStyle';
 
 export default function BarImg({alignLeft, size, src, handlePress}) {
   return (
