@@ -1,12 +1,5 @@
 import styled from 'styled-components/native';
-import {
-  Header,
-  HeaderText,
-  DefaultFontBold,
-  DefaultBorderRadius,
-  DefaultText,
-  DefaultLightText,
-} from './GlobalStyle';
+import {Header, HeaderText, DefaultFontBold, DefaultText} from './GlobalStyle';
 
 export const MenuModal = styled.View`
   flex: 1;
@@ -31,7 +24,11 @@ export const MenuSubText = styled.Text`
 
 export {Header, HeaderText};
 
-export const Modal = styled.ScrollView`
+export const Modal = styled.ScrollView.attrs(props => ({
+  contentContainerStyle: {
+    paddingBottom: 60,
+  },
+}))`
   flex: 1;
   background-color: ${({theme}) => theme.color.background};
 `;
@@ -39,9 +36,12 @@ export const Modal = styled.ScrollView`
 export const TitleView = styled.View`
   width: 100%;
   padding: 8px 16px;
+  margin-top: 16px;
+  // background-color: orange;
 `;
 
 export const TitleText = styled.Text`
+  text-align: center;
   color: ${({theme}) => theme.color.lightTextBlack};
   font-size: ${({theme}) => theme.fontSize.lg};
   line-height: ${({theme}) => theme.lineHegiht.lg};
@@ -51,7 +51,10 @@ export const TimeInfoView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
+  margin: 0 32px;
+  padding: 16px 0;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({theme}) => theme.color.line};
 `;
 
 export const TimeHeaderView = styled.View`

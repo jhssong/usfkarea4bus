@@ -3,7 +3,6 @@ import Modal from '../Modal';
 import * as S from '../../styles/MenuStyle';
 import * as C from '../../utils/constants';
 import * as T from '../../utils/types';
-import {Text} from 'react-native';
 
 export default function CampInfo(props) {
   const {isVisible, closeFunction} = props;
