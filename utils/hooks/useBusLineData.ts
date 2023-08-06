@@ -15,32 +15,44 @@ export default function useBusLineDetail(data: T.LineData) {
       camp === 'CHD'
         ? getCHDScheduleList(lineData.stopIndex, scheduleArr, stopList.length)
         : getScheduleList(lineData.stopIndex, scheduleArr);
-
+    // console.log(scheduleList);
     setStopList(stopList);
     setScheduleList(scheduleList);
   }
 
   function getScheduleList(stopIndex: number, scheduleArr: T.scheduleArr) {
     let scheduleIndex = -1;
-    let currentValue = '0000';
 
     while (true) {
       if (++scheduleIndex === scheduleArr.length)
         return Array.from({length: scheduleArr[0].length}, () => 'x');
 
-      const startValue = scheduleArr[scheduleIndex][1];
-      const tempCurrentValue = scheduleArr[scheduleIndex][stopIndex];
+      let startValue = 'x';
+      let startIndex = 0;
+      while (startValue === 'x') {
+        startIndex++;
+        startValue = scheduleArr[scheduleIndex][startIndex];
+      }
+      const currentStopValue = scheduleArr[scheduleIndex][stopIndex];
+      const currentStopBeforeValue =
+        scheduleArr[scheduleIndex - 1 < 0 ? 0 : scheduleIndex - 1][stopIndex];
 
-      if (
-        currentValue === '0000' &&
-        tempCurrentValue !== 'x' &&
-        tempCurrentValue >= timeHM
-      )
-        currentValue = tempCurrentValue;
+      // console.log(scheduleIndex, startValue, currentStopValue, timeHM);
 
-      if (startValue !== 'x' && startValue >= timeHM) {
-        if (currentValue >= startValue) return scheduleArr[scheduleIndex];
-        else return scheduleArr[scheduleIndex - 1];
+      if (startValue >= timeHM) {
+        if (
+          currentStopBeforeValue !== 'x' &&
+          currentStopBeforeValue >= timeHM
+        ) {
+          // console.log('This is Case1');
+          return scheduleArr[scheduleIndex - 1];
+        } else if (currentStopValue !== 'x' && currentStopValue >= timeHM) {
+          // console.log('This is Case2');
+          return scheduleArr[scheduleIndex];
+        }
+      } else if (currentStopValue !== 'x' && currentStopValue >= timeHM) {
+        // console.log('This is Case3');
+        return scheduleArr[scheduleIndex];
       }
     }
   }
