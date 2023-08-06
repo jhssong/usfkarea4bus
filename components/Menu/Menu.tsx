@@ -41,6 +41,7 @@ export default function Menu({isVisible, closeFunction}) {
 
         <Feedback />
 
+        {/* TODO About page */}
         <S.MenuItem onPress={openAboutModal}>
           <S.MenuText>About</S.MenuText>
         </S.MenuItem>
