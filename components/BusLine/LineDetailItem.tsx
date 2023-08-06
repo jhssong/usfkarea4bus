@@ -28,7 +28,6 @@ export default function LineDetailItem(props: T.LineItemProps) {
   const isAfter = busID === 'CHD' ? isPoint : currentStopIndex <= index;
   const isNoBus = busTime === 'x';
 
-  // TODO add current bus location
   return (
     <S.DetailPressable isPoint={isPoint} onPress={handlePressable}>
       <S.LineView>

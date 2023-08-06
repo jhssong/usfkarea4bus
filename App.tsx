@@ -8,7 +8,6 @@ import StopInfo from './components/BusStop/StopInfo';
 import theme from './styles/theme';
 
 function App(): JSX.Element {
-  // TODO redesign osm
   return (
     <RecoilRoot>
       <SafeAreaView style={{flex: 1}}>
