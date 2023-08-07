@@ -34,10 +34,11 @@ export const Modal = styled.ScrollView.attrs(props => ({
 `;
 
 export const TitleView = styled.View`
-  width: 100%;
-  padding: 8px 16px;
-  margin-top: 16px;
-  // background-color: orange;
+  // width: 100%;
+  padding: 16px 0;
+  margin: 0 24px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({theme}) => theme.color.line};
 `;
 
 export const TitleText = styled.Text`
@@ -51,14 +52,14 @@ export const TimeInfoView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 32px;
-  padding: 16px 0;
+  margin: 0 24px;
+  padding: 12px 8px;
   border-bottom-width: 1px;
   border-bottom-color: ${({theme}) => theme.color.line};
 `;
 
 export const TimeHeaderView = styled.View`
-  width: 50%;
+  width: 40%;
 `;
 
 export const TimeHeaderText = styled.Text`
@@ -67,7 +68,7 @@ export const TimeHeaderText = styled.Text`
 `;
 
 export const TimeView = styled.View`
-  width: 50%;
+  width: 60%;
   flex-direction: column;
 `;
 
